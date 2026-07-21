@@ -1,0 +1,140 @@
+@import "tailwindcss";
+@import "pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css";
+
+/*
+ * LUN Design Tokens — see DESIGN_SYSTEM.md
+ * Marina Blue 계열 + 쿨 그레이 중립색.
+ * 모든 텍스트 조합은 WCAG AA(4.5:1) 이상을 만족하도록 선정.
+ */
+@theme {
+  --font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", "Apple SD Gothic Neo", "Noto Sans KR",
+    sans-serif;
+
+  /* Marina Blue scale */
+  --color-marina-50: #edf4f8;
+  --color-marina-100: #d9e8f0;
+  --color-marina-200: #b5d2e1;
+  --color-marina-500: #1279a4;
+  --color-marina-600: #0e6285;
+  --color-marina-700: #0b4f6c;
+  --color-marina-800: #0c3e52;
+  --color-marina-900: #0b2d3a;
+  --color-marina-950: #06222e;
+
+  /* Aqua accent — 장식·아이콘·다크 배경 전용. 밝은 배경 위 텍스트 금지(대비 부족) */
+  --color-aqua-300: #7ad0d9;
+  --color-aqua-500: #35b5c2;
+
+  /* Neutrals (cool gray) */
+  --color-paper: #f8fafb;
+  --color-surface: #ffffff;
+  --color-ink-900: #16232b;
+  --color-ink-700: #3d4f5a;
+  --color-ink-500: #5b707c;
+  --color-line-300: #c9d5dc;
+  --color-line-100: #e7edf1;
+
+  /* Status colors — 색상 단독으로 상태를 전달하지 않고 항상 라벨·아이콘 병행 */
+  --color-status-done: #166534;
+  --color-status-done-bg: #e7f3ec;
+  --color-status-progress: #0b4f6c;
+  --color-status-progress-bg: #e3eef5;
+  --color-status-planned: #52616c;
+  --color-status-planned-bg: #edf1f4;
+  --color-status-future: #596d7b;
+  --color-status-future-bg: #f4f7f9;
+
+  --radius-card: 0.75rem;
+  --radius-btn: 0.5rem;
+
+  --shadow-card: 0 1px 2px rgb(11 45 58 / 0.05);
+  --shadow-card-hover: 0 4px 16px rgb(11 45 58 / 0.1);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink-700);
+  font-family: var(--font-sans);
+  line-height: 1.7;
+  letter-spacing: -0.011em;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 명확한 키보드 포커스 상태 */
+:focus-visible {
+  outline: 2px solid var(--color-marina-600);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+::selection {
+  background: var(--color-marina-100);
+  color: var(--color-marina-900);
+}
+
+/* ---- Scroll reveal (Reveal 컴포넌트가 .is-visible을 토글) ---- */
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---- 무선 신호 흐름 애니메이션 (다이어그램 연결선) ---- */
+@keyframes signal-flow {
+  to {
+    stroke-dashoffset: -16;
+  }
+}
+
+.signal-line {
+  stroke-dasharray: 4 12;
+  animation: signal-flow 1.6s linear infinite;
+}
+
+@keyframes signal-pulse {
+  0%,
+  100% {
+    opacity: 0.25;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.06);
+  }
+}
+
+.signal-pulse {
+  transform-origin: center;
+  animation: signal-pulse 3.2s ease-in-out infinite;
+}
+
+/* 모션 감소 선호 시 모든 장식 모션 제거 */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .signal-line,
+  .signal-pulse {
+    animation: none;
+  }
+}
