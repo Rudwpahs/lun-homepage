@@ -126,9 +126,13 @@ design-system/lun/      # UI UX Pro Max 생성 원본 (참고용)
 
 ## 배포 방법
 
-1. 환경변수 `NEXT_PUBLIC_SITE_URL`을 실제 도메인으로 설정 (sitemap/OG 메타데이터에 사용)
-2. Vercel: 저장소 연결 후 기본 설정으로 배포 가능
-3. 기타 Node 호스팅: `npm run build && npm run start`
+1. **Vercel**: 저장소를 import하면 별도 설정 없이 배포됩니다. sitemap·OG의 절대 URL은
+   Vercel이 자동 주입하는 `VERCEL_PROJECT_PRODUCTION_URL`에서 결정되므로
+   환경변수를 직접 설정할 필요가 없습니다.
+2. **커스텀 도메인 연결 시**에만 환경변수 `NEXT_PUBLIC_SITE_URL`을
+   `https://실제도메인` 형식으로 설정하세요 (`lib/site-config.ts`에서 최우선 적용).
+3. **기타 Node 호스팅**: `npm run build && npm run start`.
+   이 경우 `NEXT_PUBLIC_SITE_URL` 설정이 필요합니다(미설정 시 localhost로 생성됨).
 4. 배포 후 `/sitemap.xml`, `/robots.txt`, OG 미리보기 확인
 
 ## 아직 미완성인 기능
