@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { researchSection } from "@/content/lun-content";
 import { PageHero } from "@/components/layout/page-hero";
 import { ContentIcon } from "@/components/ui/icon";
+import { ButtonLink } from "@/components/ui/button-link";
 import { Reveal } from "@/components/ui/reveal";
 
 export const metadata: Metadata = {
@@ -27,9 +28,8 @@ export default function ResearchPage() {
                   <span className="flex size-11 items-center justify-center rounded-full bg-marina-50 text-marina-700">
                     <ContentIcon name={category.icon} className="size-5" />
                   </span>
-                  {/* 게시물이 준비되기 전까지는 '준비 중' 상태를 정직하게 표시 */}
-                  <span className="rounded-full border border-line-300 px-3 py-1 text-xs font-semibold text-ink-500">
-                    {researchSection.emptyStateLabel}
+                  <span className="text-xs font-semibold tracking-widest text-marina-600 uppercase">
+                    {category.label}
                   </span>
                 </div>
                 <h2 className="mt-5 text-lg font-bold text-marina-900">
@@ -38,12 +38,29 @@ export default function ResearchPage() {
                 <p className="mt-2 flex-1 text-sm leading-relaxed text-ink-500">
                   {category.description}
                 </p>
-                <p className="mt-4 border-t border-line-100 pt-4 text-xs text-ink-500">
-                  {researchSection.emptyStateDescription}
-                </p>
               </article>
             </Reveal>
           ))}
+        </div>
+      </section>
+
+      <section className="border-t border-line-100 bg-surface">
+        <div className="mx-auto flex max-w-4xl flex-col items-center px-4 py-14 text-center sm:px-6 sm:py-16">
+          <h2 className="text-xl font-bold tracking-tight text-marina-900 sm:text-2xl">
+            현재의 연구는 PR1에서 가장 먼저 구체화됩니다.
+          </h2>
+          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-ink-500 sm:text-base">
+            LUN의 연구 방향이 실제 사용자 경험으로 어떻게 이어지는지 PR1에서
+            확인하실 수 있습니다.
+          </p>
+          <div className="mt-7 flex w-full flex-col justify-center gap-3 sm:w-auto sm:flex-row">
+            <ButtonLink href="/projects/pr1" showArrow>
+              PR1 살펴보기
+            </ButtonLink>
+            <ButtonLink href="/contact" variant="secondary">
+              문의하기
+            </ButtonLink>
+          </div>
         </div>
       </section>
     </>

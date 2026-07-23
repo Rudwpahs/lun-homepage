@@ -33,7 +33,7 @@ export function Pr1Showcase() {
         <Reveal delay={100}>
           <div className="mt-12 rounded-(--radius-card) border border-white/10 bg-white/5 p-5 sm:p-8">
             <h3 className="text-sm font-semibold tracking-widest text-aqua-300 uppercase">
-              System Structure
+              Experience Flow
             </h3>
             <SignalDiagram nodes={pr1.diagram} className="mt-6" />
           </div>
@@ -43,7 +43,7 @@ export function Pr1Showcase() {
           <div className="mt-10 flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
             <div>
               <h3 className="text-sm font-semibold tracking-widest text-aqua-300 uppercase">
-                현재 검증 중인 항목
+                Experience Criteria
               </h3>
               <ul className="mt-4 flex max-w-xl flex-wrap gap-2">
                 {pr1.validationItems.map((item) => (

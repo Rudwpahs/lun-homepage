@@ -10,8 +10,10 @@ UI UX Pro Max 스킬의 생성 결과(`design-system/lun/MASTER.md`)를 바탕�
 ## 1. 디자인 철학
 
 - **Calm technology** — 기술이 앞에 나서지 않고, 필요한 순간에 뒤로 물러나는 브랜드 성격을 그대로 반영합니다. 화면은 조용하고, 정보는 명확해야 합니다.
-- **Swiss Modernism 2.0 + Minimalism** — 수학적 간격, 명확한 위계, 높은 대비, 최소한의 장식. 12컬럼 감각의 그리드와 여백으로 구조를 만듭니다.
-- **연구 기록의 신뢰감** — 투자 유치형 과장 대신, 상태 배지·타임라인·정직한 고지로 "검증 중"이라는 사실을 디자인 언어로 표현합니다.
+- **Minimalism first** — Glassmorphism이나 Liquid Glass보다 정보 위계와 여백을 우선합니다. 효과를 제거해도 구조가 성립해야 합니다.
+- **Swiss Modernism 2.0** — 수학적 간격, 명확한 위계, 높은 대비, 최소한의 장식. 12컬럼 감각의 그리드와 여백으로 구조를 만듭니다.
+- **Glassmorphism + Liquid Glass** — 유리 재질은 브랜드의 맑고 유동적인 인상을 보조합니다. Glassmorphism은 히어로 비주얼에, Liquid Glass는 헤더·버튼 등 떠 있는 조작층에 집중합니다.
+- **연구의 신뢰감** — 투자 유치형 과장 대신 확인된 사실·현재 가설·미래 계획을 구분합니다.
 - **콘텐츠와 UI 분리** — 모든 문구는 `content/lun-content.ts`에서 관리하고, 컴포넌트는 표현만 담당합니다.
 
 > 참고: UI UX Pro Max가 1순위로 추천한 Neumorphism 스타일은
@@ -90,8 +92,8 @@ UI UX Pro Max 스킬의 생성 결과(`design-system/lun/MASTER.md`)를 바탕�
 
 | 토큰 | 값 | 용도 |
 |---|---|---|
-| `--radius-btn` | 8px | 버튼, 입력 필드 |
-| `--radius-card` | 12px | 카드, 패널 |
+| `--radius-btn` | 999px | Liquid Glass 버튼 |
+| `--radius-card` | 20px | 카드, 패널 |
 | `rounded-full` | — | 배지, 칩, 아이콘 원 |
 
 ## 6. 그림자
@@ -102,26 +104,36 @@ Swiss 방향에 맞춰 보더 중심 + 그림자는 최소화합니다.
 |---|---|---|
 | `--shadow-card` | `0 1px 2px rgb(11 45 58 / 0.05)` | 카드 기본 |
 | `--shadow-card-hover` | `0 4px 16px rgb(11 45 58 / 0.10)` | 카드 hover |
+| `--shadow-glass` | 다층 외부 그림자 + 흰색 inset highlight | 스크롤된 Liquid Glass 헤더 |
 
 ## 7. 버튼 (`components/ui/button-link.tsx`)
 
-- 공통: `min-h-11`(44px 터치 타깃), semibold 14px, `transition-colors 200ms`, `cursor-pointer`.
-- `primary`: marina-700 배경 + 흰 텍스트 (8.94:1). hover marina-800, active marina-900.
-- `secondary`: 흰 배경 + line-300 보더 + marina-800 텍스트. hover 시 보더 marina-500.
-- `ghost`: 텍스트만, hover 시 marina-50 배경.
-- `onDark`: 다크 섹션 전용 — `white/10` 배경 + `white/25` 보더.
+- 공통: `min-h-11`(44px 터치 타깃), pill 형태, 180ms 전환, 눌림 시 `scale(0.985)`.
+- `primary`: marina tint를 사용하는 불투명도 높은 유리 버튼. 흰 텍스트 대비를 유지합니다.
+- `secondary`: 흰색 반투명 표면 + line 보더 + marina 텍스트.
+- `ghost`: 기본 상태에는 굴절을 적용하지 않고 hover에서만 얕은 표면을 표시합니다.
+- `onDark`: 다크 섹션 전용 — `white/12` 배경 + `white/25` 보더.
+- 헤더 자체가 유리층이므로 헤더 안 버튼에는 중첩 `backdrop-filter`를 적용하지 않습니다.
 - 화살표는 `showArrow`로 옵트인.
 
 ## 8. 카드
 
 - 기본: `bg-surface + border line-100 + radius-card + shadow-card`.
 - hover: `shadow-card-hover` (모션 없이 그림자만).
+- 본문 카드는 기본적으로 불투명 표면을 유지합니다. 모든 카드를 유리로 만드는 패턴은 금지합니다.
 - 분할 그리드 카드: `grid gap-px bg-line-100` 기법으로 1px 분할선 (Problem, 검증 항목).
 - 다크 패널: `bg-marina-900 + border-white/10 + bg-white/5` (PR1 다이어그램).
-- 준비 중 카드: `border-dashed line-300` + "준비 중" 배지 — 빈 상태를 정직하게 표시.
-- 회사 구조도: LUN을 상위 브랜드로 두고 PR1(Current Focus)과 PR2(Future Research)를
-  하위 연구 방향으로 연결합니다. 공개용 구조도에는 내부 prestudy의 구현·검증
-  데이터를 포함하지 않습니다.
+- 회사 구조도: Problem → LUN Approach → PR1(Current Focus) → PR2(Future Research)
+  순서로 연결합니다. 공개용 구조도에는 내부 prestudy의 구현·검증 데이터를
+  포함하지 않습니다.
+
+### Liquid Glass 적용 범위
+
+- `liquid-nav`: 스크롤 전에는 가볍게, 콘텐츠가 아래로 지나가면 불투명도·그림자를 높여 분리합니다.
+- `liquid-control`: hover·press에 빛과 깊이가 반응하는 버튼입니다.
+- `hero-glass-lens`: 포인터 위치에 따라 하이라이트와 최대 2.2° 기울기만 반응합니다.
+- `prefers-reduced-transparency`, `prefers-reduced-motion`, `backdrop-filter` 미지원 환경에서 불투명 표면으로 폴백합니다.
+- Apple 원칙에 따라 본문 콘텐츠층과 유리 조작층을 구분하고 glass-on-glass를 피합니다.
 
 ## 9. 배지 (`components/ui/badge.tsx`)
 
@@ -138,12 +150,13 @@ Swiss 방향에 맞춰 보더 중심 + 그림자는 최소화합니다.
 
 허용 (모두 `prefers-reduced-motion: reduce`에서 자동 비활성 — `globals.css`):
 
-- `Reveal` — IntersectionObserver 기반 섹션 등장 (500ms, 14px 상승, 1회만).
+- `Reveal` — IntersectionObserver 기반 섹션 등장 (400ms, 10px 상승, 1회만).
 - `.signal-line` — 다이어그램 연결선의 신호 흐름 (dash offset, 1.6s).
 - `.signal-pulse` — 히어로 동심 호의 은은한 펄스 (3.2s).
-- 버튼·카드 hover 전환 150~300ms.
+- 히어로 유리 렌즈 포인터 반응 — 비터치 포인터에서 최대 2.2° 기울기.
+- 버튼·헤더 hover/press 전환 180~220ms.
 
-금지: 패럴랙스, 스크롤 하이재킹, 자동재생 비디오, 커서 추적, 텍스트 애니메이션, 로딩 인트로.
+금지: 패럴랙스, 스크롤 하이재킹, 자동재생 비디오, 전역 커서 추적, 텍스트 애니메이션, 로딩 인트로.
 (21st의 Process Timeline 컴포넌트가 사용하는 스크롤 고정 가로 이동은 이 원칙에 따라 정적 세로 타임라인으로 재설계했습니다.)
 
 **승인된 예외 — PR1 스크롤 스토리** (`components/sections/pr1-story.tsx`, 오너 요청으로 추가):
@@ -179,7 +192,8 @@ PR1 상세 페이지 상단의 캔버스 프레임 스크럽 섹션 1곳에 한�
 
 ## 14. 사용 금지 패턴
 
-- AI 보라·분홍 그라데이션, 네온, 사이버펑크, 게임 UI, 과도한 Glassmorphism
+- AI 보라·분홍 그라데이션, 네온, 사이버펑크, 게임 UI, 본문 전체를 덮는 과도한 Glassmorphism
+- glass-on-glass 중첩, 저대비 투명 본문, 장식만을 위한 과도한 굴절
 - 의미 없는 3D 오브젝트, 가짜 제품 목업·렌더링
 - 과장 숫자, 가짜 후기, 가짜 파트너 로고, 존재하지 않는 특허·인증 표기
 - "세계 최초", "상용화 완료", "판매 중" 등 검증되지 않은 주장

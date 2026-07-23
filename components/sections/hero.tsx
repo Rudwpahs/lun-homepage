@@ -18,11 +18,11 @@ export function Hero() {
             {brand.description}
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <ButtonLink href="/projects/pr1" showArrow>
-              PR1 프로젝트 보기
+            <ButtonLink href="/about" showArrow>
+              LUN 알아보기
             </ButtonLink>
-            <ButtonLink href="/development" variant="secondary">
-              개발 과정 확인하기
+            <ButtonLink href="/research" variant="secondary">
+              연구 방향 보기
             </ButtonLink>
           </div>
         </Reveal>

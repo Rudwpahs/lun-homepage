@@ -1,12 +1,13 @@
 # LUN 공식 홈페이지
 
-LUN은 스마트폰 화면 의존을 줄이는 오디오 인터페이스를 연구하는 기술 프로젝트 브랜드입니다.
+LUN은 스마트폰 화면 의존을 줄이는 오디오 인터페이스를 연구·개발합니다.
 이 저장소는 LUN의 공식 홈페이지(한국어 중심) 소스입니다.
 
-- **PR1** — 현재 핵심 개발 프로젝트: 분리형 무선 오디오 시스템 (Current Focus / Prototype Stage)
+- **PR1** — 현재 핵심 개발 프로젝트: 분리형 오디오 경험 (Current Focus / Experience Validation)
 - **PR2** — 미래 연구 프로젝트: 초소형 오픈이어 오디오 (Future Research / Exploration Phase)
 
-> 이 사이트는 기술 검증 단계의 프로젝트를 소개합니다.
+> 이 사이트는 LUN의 회사 방향과 공개 가능한 연구 프로젝트를 소개합니다.
+> 내부 prestudy의 부품·프로토콜·시험 데이터는 홈페이지 콘텐츠와 분리합니다.
 > 검증되지 않은 성능 수치·후기·파트너·인증을 표기하지 않는 것이 콘텐츠 원칙입니다.
 > 자세한 규칙은 `content/lun-content.ts` 상단 주석과 `DESIGN_SYSTEM.md`를 참고하세요.
 
@@ -41,8 +42,8 @@ app/                    # 라우트 (App Router)
   page.tsx              # 홈
   projects/pr1/         # PR1 상세
   projects/pr2/         # PR2 상세
-  development/          # 개발 로드맵
-  research/             # 연구·기록 (준비 중 상태)
+  development/          # LUN의 개발 원칙
+  research/             # 공개 연구 방향
   about/                # 브랜드 비전
   contact/              # 문의 폼 (개발용)
   sitemap.ts robots.ts opengraph-image.tsx
@@ -65,21 +66,21 @@ design-system/lun/      # UI UX Pro Max 생성 원본 (참고용)
 
 | 경로 | 내용 |
 |---|---|
-| `/` | 히어로, 문제 정의, 접근 방식, **LUN 회사와 PR1·PR2의 관계 시각화**, PR1 핵심 섹션(최대 비중), PR2 프리뷰(작은 비중), 로드맵 프리뷰, 비전, 문의 CTA |
-| `/projects/pr1` | PR1 개요, **스크롤 개념 스토리(Separate→Connect→Listen)**, 시스템 구조 다이어그램, 검증 항목, 8단계 로드맵, 정직 고지 |
+| `/` | 히어로, **LUN 회사 서사 시각화**, 비전, 문제, 접근 방식, PR1·PR2, 문의 CTA |
+| `/projects/pr1` | PR1 개요, **스크롤 개념 스토리(Separate→Connect→Listen)**, 공개용 경험 흐름, 제품 경험 기준, 정직 고지 |
 | `/projects/pr2` | PR2 키워드·연구 방향, PR1과의 관계, 5단계 로드맵, 정직 고지 |
-| `/development` | 상태 라벨 안내, PR1/PR2 전체 로드맵, 개발 일지(준비 중) |
-| `/research` | 6개 기록 카테고리 — 게시물이 없으므로 전부 "준비 중" 표시 |
+| `/development` | 문제 우선·단계 검증·근거 우선·책임 있는 제품화 원칙 |
+| `/research` | Screen-light, Spatial Audio Interface 등 6개 공개 연구 방향 |
 | `/about` | 브랜드 정의, 철학, 비전 인용, 6가지 가치 |
 | `/contact` | 문의 폼 — **백엔드 미연결(개발용) 상태를 UI에 명시** |
 
 ## 콘텐츠 수정 방법
 
-문구·로드맵·검증 항목은 전부 `content/lun-content.ts`에서 수정합니다.
+문구·프로젝트 방향·경험 기준은 전부 `content/lun-content.ts`에서 수정합니다.
 컴포넌트 파일을 열 필요가 없습니다. 예:
 
-- 로드맵 단계 상태 변경 → `pr1Roadmap`의 `status` 값 수정 (`"Completed" | "In Progress" | "Planned" | "Future"`)
-- 검증 항목 추가 → `pr1.validationItems`에 항목 추가
+- PR1 경험 기준 추가 → `pr1.validationItems`에 항목 추가
+- 회사 서사 수정 → `companyOverview.journey` 항목 수정
 - 내비게이션 변경 → `lib/site-config.ts`의 `navItems`
 
 ## PR1 스크롤 스토리 (개념 애니메이션)
@@ -96,7 +97,7 @@ design-system/lun/      # UI UX Pro Max 생성 원본 (참고용)
 
 ## 이미지 교체 방법
 
-현재 프로토타입 사진이 없으므로 개념 다이어그램과 추상 SVG만 사용합니다(가짜 렌더링 금지 원칙).
+현재 공개 가능한 제품 사진이 없으므로 개념 다이어그램과 추상 SVG만 사용합니다(가짜 렌더링 금지 원칙).
 실제 사진이 준비되면:
 
 1. `public/images/`에 파일 추가 (WebP 권장)
@@ -138,11 +139,9 @@ design-system/lun/      # UI UX Pro Max 생성 원본 (참고용)
 ## 아직 미완성인 기능
 
 - **문의 폼 백엔드** — 미연결 (개발용 안내 표시 중)
-- **Research 게시물** — 카테고리만 존재, 콘텐츠는 "준비 중"
-- **개발 일지** — 준비 중 상태
 - **확정 로고** — 텍스트 워드마크 + 임시 심볼 사용 중
 - **다국어(영어) 버전** — 초기 버전은 한국어 중심
-- **프로토타입 실물 사진** — 확보 시 교체 (가짜 렌더링은 만들지 않음)
+- **공개 가능한 제품 사진** — 확보 시 교체 (가짜 렌더링은 만들지 않음)
 
 ## 개발 도구 메모
 

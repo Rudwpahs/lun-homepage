@@ -6,12 +6,12 @@ type ButtonVariant = "primary" | "secondary" | "ghost" | "onDark";
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
-    "bg-marina-700 text-white hover:bg-marina-800 active:bg-marina-900 shadow-card",
+    "liquid-control--tint bg-marina-700 text-white hover:bg-marina-800 active:bg-marina-900",
   secondary:
-    "border border-line-300 bg-surface text-marina-800 hover:border-marina-500 hover:text-marina-700",
-  ghost: "text-marina-700 hover:bg-marina-50",
+    "liquid-control--light border border-line-300 bg-surface text-marina-800 hover:border-marina-500 hover:text-marina-700",
+  ghost: "liquid-control--ghost text-marina-700 hover:bg-white/45",
   onDark:
-    "bg-white/10 text-white border border-white/25 hover:bg-white/20",
+    "liquid-control--dark border border-white/25 bg-white/10 text-white hover:bg-white/20",
 };
 
 interface ButtonLinkProps {
@@ -36,13 +36,15 @@ export function ButtonLink({
     <Link
       href={href}
       className={cn(
-        "inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-(--radius-btn) px-5 py-2.5 text-sm font-semibold transition-colors duration-200",
+        "liquid-control inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-full px-5 py-2.5 text-sm font-semibold",
         variantClasses[variant],
         className,
       )}
     >
-      {children}
-      {showArrow && <ArrowRight className="size-4" aria-hidden />}
+      <span className="relative z-10">{children}</span>
+      {showArrow && (
+        <ArrowRight className="relative z-10 size-4" aria-hidden />
+      )}
     </Link>
   );
 }

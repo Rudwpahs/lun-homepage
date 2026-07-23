@@ -74,11 +74,11 @@ export default function AboutPage() {
               {aboutSection.currentState}
             </p>
             <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-              <ButtonLink href="/projects/pr1" showArrow>
-                PR1 프로젝트 보기
+              <ButtonLink href="/research" showArrow>
+                연구 방향 보기
               </ButtonLink>
-              <ButtonLink href="/development" variant="secondary">
-                개발 과정 확인하기
+              <ButtonLink href="/contact" variant="secondary">
+                문의하기
               </ButtonLink>
             </div>
           </Reveal>

@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     "오픈이어",
     "골전도",
     "화면 의존",
-    "기술 프로젝트",
+    "오디오 연구개발",
   ],
   openGraph: {
     type: "website",

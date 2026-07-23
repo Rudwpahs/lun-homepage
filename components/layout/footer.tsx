@@ -36,9 +36,9 @@ export function Footer() {
 
         <div className="mt-12 border-t border-white/10 pt-6 text-xs leading-relaxed text-marina-100/60">
           <p>
-            LUN은 현재 기술 검증 단계의 프로젝트 브랜드이며, 아직 제품을
-            판매하지 않습니다. 사이트의 내용은 진행 중인 연구와 개발 방향을
-            설명합니다.
+            LUN은 화면 의존을 줄이는 오디오 인터페이스를 연구·개발하고 있으며,
+            아직 제품을 판매하지 않습니다. 이 사이트는 공개 가능한 회사 방향과
+            연구 프로젝트를 설명합니다.
           </p>
           <p className="mt-2">© {new Date().getFullYear()} LUN. All rights reserved.</p>
         </div>

@@ -1,3 +1,4 @@
+import { ArrowDown, ArrowRight } from "lucide-react";
 import { companyOverview } from "@/content/lun-content";
 import { Badge } from "@/components/ui/badge";
 import { ContentIcon } from "@/components/ui/icon";
@@ -5,12 +6,13 @@ import { Reveal } from "@/components/ui/reveal";
 import { SectionHeading } from "@/components/ui/section-heading";
 
 /**
- * LUN 회사와 PR1·PR2의 관계를 설명하는 공개용 브랜드 구조도.
+ * 문제 → LUN의 접근 → PR1 → PR2 관계를 설명하는 공개용 브랜드 구조도.
  * 내부 prestudy의 구현·검증 데이터는 이 시각화에 포함하지 않습니다.
  */
 export function CompanyOverview() {
   return (
-    <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
+    <section className="border-b border-line-100 bg-surface">
+      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
       <Reveal>
         <SectionHeading
           eyebrow="Company Overview"
@@ -23,9 +25,7 @@ export function CompanyOverview() {
         <figure className="mt-12">
           <div className="grid gap-8 rounded-(--radius-card) bg-marina-900 p-7 sm:p-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-end">
             <div>
-              <Badge tone="primary">
-                {companyOverview.core.label}
-              </Badge>
+              <Badge tone="primary">{companyOverview.core.label}</Badge>
               <h3
                 className="mt-6 max-w-xl text-2xl leading-tight font-bold tracking-tight text-white sm:text-3xl"
               >
@@ -52,49 +52,57 @@ export function CompanyOverview() {
 
           <div aria-hidden className="mx-auto h-8 w-px bg-line-300" />
 
-          <div className="relative">
-            <div
-              aria-hidden
-              className="absolute top-0 right-1/4 left-1/4 hidden h-px bg-line-300 md:block"
-            />
-            <div className="grid gap-6 md:grid-cols-2 md:gap-8">
-              {companyOverview.projects.map((project) => (
-                <div key={project.name} className="relative pt-6">
-                  <div
-                    aria-hidden
-                    className="absolute top-0 left-1/2 h-6 w-px bg-line-300"
-                  />
+          <ol
+            aria-label="LUN의 문제 인식부터 미래 연구까지"
+            className="flex flex-col lg:flex-row lg:items-stretch"
+          >
+            {companyOverview.journey.map((step, index) => {
+              const isLast = index === companyOverview.journey.length - 1;
+              const cardClass =
+                step.tone === "primary"
+                  ? "border-marina-300 bg-marina-50"
+                  : step.tone === "future"
+                    ? "border-line-300 bg-paper"
+                    : "border-line-100 bg-surface";
+
+              return (
+                <li
+                  key={step.label}
+                  className="flex min-w-0 flex-1 flex-col lg:flex-row"
+                >
                   <article
-                    className={
-                      project.tone === "primary"
-                        ? "h-full rounded-(--radius-card) border border-marina-200 bg-surface p-6 shadow-card sm:p-8"
-                        : "h-full rounded-(--radius-card) border border-line-300 bg-marina-50 p-6 sm:p-8"
-                    }
+                    className={`flex min-h-64 flex-1 flex-col rounded-(--radius-card) border p-6 ${cardClass}`}
                   >
-                    <div className="flex flex-wrap items-center justify-between gap-3">
-                      <Badge tone={project.tone}>{project.badge}</Badge>
-                      <ContentIcon
-                        name={project.icon}
-                        className="size-6 text-marina-600"
-                      />
+                    <div className="flex items-start justify-between gap-4">
+                      <Badge tone={step.tone}>{step.label}</Badge>
+                      <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-marina-900 text-white">
+                        <ContentIcon name={step.icon} className="size-5" />
+                      </span>
                     </div>
-                    <p className="mt-6 text-sm font-semibold tracking-widest text-marina-600 uppercase">
-                      {project.name}
+                    <p className="mt-5 text-xs font-semibold tracking-widest text-marina-600 uppercase">
+                      {step.labelKo}
                     </p>
-                    <h4 className="mt-2 text-xl font-bold tracking-tight text-marina-900">
-                      {project.title}
+                    <h4 className="mt-2 text-lg leading-snug font-bold tracking-tight text-marina-900">
+                      {step.title}
                     </h4>
-                    <p className="mt-4 text-sm leading-relaxed text-ink-500 sm:text-base">
-                      {project.description}
-                    </p>
-                    <p className="mt-6 text-sm font-semibold text-marina-700">
-                      {project.badgeKo}
+                    <p className="mt-3 text-sm leading-relaxed text-ink-500">
+                      {step.description}
                     </p>
                   </article>
-                </div>
-              ))}
-            </div>
-          </div>
+
+                  {!isLast && (
+                    <span
+                      aria-hidden
+                      className="flex h-10 shrink-0 items-center justify-center text-marina-500 lg:h-auto lg:w-10"
+                    >
+                      <ArrowDown className="size-5 lg:hidden" />
+                      <ArrowRight className="hidden size-5 lg:block" />
+                    </span>
+                  )}
+                </li>
+              );
+            })}
+          </ol>
 
           <figcaption className="mt-8 rounded-(--radius-card) border border-line-100 bg-surface px-6 py-5 text-sm leading-relaxed text-marina-900 sm:flex sm:items-center sm:gap-8 sm:px-8">
             <span className="block shrink-0 text-xs font-semibold tracking-widest text-marina-600 uppercase">
@@ -106,6 +114,7 @@ export function CompanyOverview() {
           </figcaption>
         </figure>
       </Reveal>
+      </div>
     </section>
   );
 }
