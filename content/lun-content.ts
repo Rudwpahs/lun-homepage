@@ -5,6 +5,8 @@
  * 컴포넌트 코드가 아니라 이 파일을 수정하세요.
  *
  * 진실성 원칙 (09_TRUTH_AND_SAFETY_RULES 기준):
+ * - 이 사이트는 LUN 회사와 공개 가능한 연구 방향을 소개합니다.
+ * - prestudy의 보드·패킷·프로토콜·테스트 데이터는 홈페이지 콘텐츠와 분리합니다.
  * - PR1은 "현재 핵심 개발 프로젝트"이며 완제품이 아닙니다.
  * - PR2는 "미래 연구 프로젝트"이며 PR1 검증 이후 구체화됩니다.
  * - 검증되지 않은 성능 수치, 후기, 파트너, 인증, 특허를 표기하지 않습니다.
@@ -115,6 +117,43 @@ export const approachSection = {
       icon: "ear",
     },
   ],
+} as const;
+
+export const companyOverview = {
+  title: "하나의 방향, 단계적으로 이어지는 연구",
+  description:
+    "LUN은 화면을 계속 보지 않아도 필요한 오디오를 자연스럽게 이어가는 경험을 연구합니다. 현재의 집중 개발과 미래 연구는 이 하나의 질문에서 연결됩니다.",
+  core: {
+    label: "LUN / Company",
+    title: "화면 의존을 줄이는 오디오 인터페이스",
+    description:
+      "필요한 소리는 이어지고, 화면은 자연스럽게 뒤로 물러나는 경험을 설계합니다.",
+    principles: ["Screen-light", "Human-centered", "Practical innovation"],
+  },
+  projects: [
+    {
+      name: "PR1",
+      badge: "Current Focus",
+      badgeKo: "현재 집중 개발",
+      title: "분리형 무선 오디오 시스템",
+      description:
+        "화면과 청취 장치를 분리하고, 공간과 목적에 맞는 연결 방식을 현재 집중적으로 검증합니다.",
+      tone: "primary",
+      icon: "radio",
+    },
+    {
+      name: "PR2",
+      badge: "Future Research",
+      badgeKo: "미래 연구",
+      title: "초소형 오픈이어 오디오 연구",
+      description:
+        "PR1에서 확인한 방향을 바탕으로 미래의 일상형 오디오 경험을 탐색합니다.",
+      tone: "future",
+      icon: "ear",
+    },
+  ],
+  sequence:
+    "PR1을 먼저 검증하고, 그 결과를 바탕으로 PR2의 형태와 방향을 구체화합니다.",
 } as const;
 
 export const pr1 = {

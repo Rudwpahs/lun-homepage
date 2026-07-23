@@ -1,6 +1,7 @@
 import { Hero } from "@/components/sections/hero";
 import { Problem } from "@/components/sections/problem";
 import { Approach } from "@/components/sections/approach";
+import { CompanyOverview } from "@/components/sections/company-overview";
 import { Pr1Showcase } from "@/components/sections/pr1-showcase";
 import { Pr2Preview } from "@/components/sections/pr2-preview";
 import { RoadmapPreview } from "@/components/sections/roadmap-preview";
@@ -13,6 +14,7 @@ export default function HomePage() {
       <Hero />
       <Problem />
       <Approach />
+      <CompanyOverview />
       <Pr1Showcase />
       <Pr2Preview />
       <RoadmapPreview />
