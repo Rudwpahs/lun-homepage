@@ -25,8 +25,7 @@ export const brand = {
   name: "LUNDA",
   tagline: "화면에서 벗어나도, 연결은 계속됩니다.",
   description: "LUNDA는 화면 의존을 줄이는 오디오 경험을 연구합니다.",
-  vision:
-    "LUNDA는 사람을 화면에 더 오래 붙잡아 두는 기술이 아니라, 필요한 순간에 기술이 자연스럽게 뒤로 물러나는 경험을 연구합니다.",
+  vision: "기술은 뒤로. 사람의 집중과 움직임은 앞으로.",
   values: [
     {
       key: "Screen-light",
@@ -71,6 +70,39 @@ export const homeIntro = {
       keyword: "몰입",
       hint: "움직임과 집중",
       statement: "움직임과 집중을 지킵니다.",
+    },
+  ],
+} as const;
+
+export const homeVision = {
+  label: "LUNDA의 비전",
+  headline: ["기술은 뒤로.", "삶은 앞으로."],
+  nodes: [
+    {
+      keyword: "사람",
+      statement: "사람을 먼저 봅니다.",
+    },
+    {
+      keyword: "경험",
+      statement: "흐름을 먼저 설계합니다.",
+    },
+    {
+      keyword: "검증",
+      statement: "근거를 먼저 쌓습니다.",
+    },
+  ],
+  projects: [
+    {
+      phase: "지금",
+      name: "PR1",
+      title: "화면과 청취 분리",
+      href: "/projects/pr1",
+    },
+    {
+      phase: "다음",
+      name: "PR2",
+      title: "더 자연스러운 형태",
+      href: "/projects/pr2",
     },
   ],
 } as const;
@@ -424,51 +456,46 @@ export const developmentSection = {
 } as const;
 
 export const researchSection = {
-  title: "LUNDA의 연구 방향",
-  description:
-    "LUNDA는 특정 부품이나 하나의 제품 형태보다, 화면 의존을 줄이는 오디오 경험을 중심으로 연구합니다.",
-  categories: [
+  title: "화면 없이도\n이어지는 오디오.",
+  description: "네 방향을 선택해 LUNDA의 연구 지도를 살펴보세요.",
+  directions: [
     {
-      label: "Experience",
-      title: "Screen-light Experience",
-      description:
-        "필요한 정보는 이어지되 화면 확인은 줄어드는 사용 흐름과 인터페이스를 연구합니다.",
-      icon: "eye-off",
+      keyword: "분리",
+      hint: "화면 ↔ 청취",
+      statement: "화면은 두고, 필요한 소리만 이어갑니다.",
+      icon: "split",
     },
     {
-      label: "Connection",
-      title: "Spatial Audio Interface",
-      description:
-        "개인 기기 중심의 연결을 넘어, 목적과 공간에 맞는 오디오 이용 방식을 탐색합니다.",
+      keyword: "공간",
+      hint: "목적 ↔ 연결",
+      statement: "사람과 장소에 맞는 연결을 설계합니다.",
       icon: "radio",
     },
     {
-      label: "Listening",
-      title: "Open Listening",
-      description:
-        "귀를 완전히 막지 않고 주변 환경을 함께 인지할 수 있는 청취 경험을 지향합니다.",
+      keyword: "개방",
+      hint: "소리 ↔ 주변",
+      statement: "필요한 소리와 주변 환경을 함께 듣습니다.",
       icon: "ear",
     },
     {
-      label: "Human",
-      title: "Human-centered Validation",
-      description:
-        "성능 수치뿐 아니라 집중, 이동, 편안함, 조작 부담 같은 실제 경험을 함께 확인합니다.",
-      icon: "user",
-    },
-    {
-      label: "Responsibility",
-      title: "Responsible Technology",
-      description:
-        "안전과 법규, 인증 가능성을 제품 방향과 분리하지 않고 초기부터 함께 검토합니다.",
+      keyword: "책임",
+      hint: "경험 ↔ 안전",
+      statement: "사람·안전·법규를 처음부터 함께 봅니다.",
       icon: "scale",
     },
+  ],
+  projects: [
     {
-      label: "Future",
-      title: "Everyday Form Factor",
-      description:
-        "PR1에서 얻은 근거를 바탕으로 더 작고 자연스러운 일상형 오디오 형태를 탐색합니다.",
-      icon: "search",
+      phase: "현재",
+      name: "PR1",
+      title: "핵심 경험 검증",
+      href: "/projects/pr1",
+    },
+    {
+      phase: "이후",
+      name: "PR2",
+      title: "일상형 형태 확장",
+      href: "/projects/pr2",
     },
   ],
 } as const;
@@ -478,8 +505,8 @@ export const researchSection = {
  * 실제 제품 렌더링이 아닌 추상 개념 애니메이션임을 항상 명시한다.
  */
 export const pr1Story = {
-  label: "PR1 Concept",
-  labelKo: "개념 시각화",
+  label: "PR1 개념",
+  labelKo: "경험 시각화",
   honesty: "추상 개념 애니메이션입니다. 실제 제품의 형상이 아닙니다.",
   phases: [
     {
