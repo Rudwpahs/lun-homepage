@@ -32,13 +32,11 @@ export interface NavItem {
 }
 
 export const navItems: NavItem[] = [
-  { label: "LUNDA 소개", href: "/about" },
   { label: "연구 방향", href: "/research" },
   { label: "PR1", href: "/projects/pr1" },
   { label: "PR2", href: "/projects/pr2" },
 ];
 
 export const ctaLinks = {
-  about: { label: "LUNDA 소개", href: "/about" },
   research: { label: "연구 방향", href: "/research" },
 } as const;
