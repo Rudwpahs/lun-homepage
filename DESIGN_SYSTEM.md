@@ -1,6 +1,6 @@
-# LUN Design System
+# LUNDA Design System
 
-LUN 공식 홈페이지의 디자인 시스템 문서입니다.
+LUNDA 공식 홈페이지의 디자인 시스템 문서입니다.
 UI UX Pro Max 스킬의 생성 결과(`design-system/lun/MASTER.md`)를 바탕으로,
 브랜드 브리프(Marina Blue, Pretendard, 절제된 모션)에 맞게 보정한 **최종 확정본**입니다.
 두 문서가 충돌하면 이 문서가 우선합니다.
@@ -123,7 +123,7 @@ Swiss 방향에 맞춰 보더 중심 + 그림자는 최소화합니다.
 - 본문 카드는 기본적으로 불투명 표면을 유지합니다. 모든 카드를 유리로 만드는 패턴은 금지합니다.
 - 분할 그리드 카드: `grid gap-px bg-line-100` 기법으로 1px 분할선 (Problem, 검증 항목).
 - 다크 패널: `bg-marina-900 + border-white/10 + bg-white/5` (PR1 다이어그램).
-- 회사 구조도: Problem → LUN Approach → PR1(Current Focus) → PR2(Future Research)
+- 회사 구조도: Problem → LUNDA Approach → PR1(Current Focus) → PR2(Future Research)
   순서로 연결합니다. 공개용 구조도에는 내부 prestudy의 구현·검증 데이터를
   포함하지 않습니다.
 
@@ -166,6 +166,32 @@ PR1 상세 페이지 상단의 캔버스 프레임 스크럽 섹션 1곳에 한�
 이미지 + 텍스트 목록으로 대체 ③ 스크롤 이벤트 리스너 없이 rAF 루프만 사용
 ④ 다른 페이지·섹션으로 확대하지 않음. 프레임 재생성은
 `python scripts/generate_pr1_story_frames.py`.
+
+## 11-B. 글래스모피즘 & 인터랙션 (오너 요청 반영)
+
+브랜드 브리프는 "지나친 글래스모피즘"을 금지하지만, 오너 요청으로 **절제된·접근성 있는
+글래스** 레이어를 도입했습니다. 원칙은 "글래스는 색 위에서만 유리로 읽힌다"입니다.
+
+**토큰·유틸리티 (`app/globals.css`)**
+- `--glass-bg`(0.62 흰색) / `--glass-bg-strong`(0.82) / `--glass-border` / `--glass-blur`(14px) / `--glass-dark-*`
+- `.glass` · `.glass-strong` · `.glass-dark` — `backdrop-filter: blur+saturate`, `@supports` 미지원 폴백은 불투명도를 올려 대비 보존
+- `.aurora` + `.aurora__blob--1/2/3` — 화면 뒤 은은한 마리나·아쿠아 블롭 (드리프트 애니메이션). z-0, `aria-hidden`, `pointer-events:none`. 콘텐츠는 z-10 이상.
+- `.spotlight-card` (+`--dark`) — 포인터를 따라오는 방사형 하이라이트 + hover 상승. `components/ui/spotlight-card.tsx`가 `--mx/--my`를 갱신.
+
+**컴포넌트**
+- `AuroraBackground` — 레이아웃에 1회 마운트되는 전역 배경.
+- `SpotlightCard` — 인터랙티브 카드 래퍼 (approach·research·about·pr2·pr1 다이어그램 패널).
+- 헤더 — 최상단 반투명 → 스크롤 시 프로스티드 글래스 + 하단 하어라인 (`scrolled` 상태).
+- 버튼 — primary hover 글로우, secondary/onDark 글래스 hover.
+
+**접근성 가드레일 (필수, 계산·실측 검증)**
+- 투명 섹션 뒤 오로라가 비쳐도 본문(`ink-500`) 대비가 AA를 넘도록:
+  오로라 블롭 불투명도를 낮추고(`0.30 / 0.14 / 0.28`), `ink-500`을 `#516875`로 살짝 어둡게 조정.
+  → 블롭 드리프트 최악 위치에서도 본문 대비 ≥ 4.9:1 (측정값: paper 5.48 / 최악 aqua 5.11 / 최악 marina 4.90).
+- `--glass-bg` 불투명도(0.62/0.82)는 **낮추지 말 것** — 카드 위 본문 대비의 하한을 지탱함.
+- 본문 텍스트를 가공되지 않은 오로라 위에 직접 올리지 말 것 (글래스/불투명 표면을 경유).
+- 모든 글래스·오로라·스포트라이트 모션은 `prefers-reduced-motion`에서 정지(CSS + SpotlightCard JS 이중 가드).
+- 문의 폼 입력 필드는 가독성을 위해 불투명 유지(글래스 미적용).
 
 ## 12. 반응형 기준
 

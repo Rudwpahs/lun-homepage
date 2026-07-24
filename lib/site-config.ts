@@ -19,10 +19,10 @@ function resolveSiteUrl(): string {
 
 /** 사이트 전역 설정. */
 export const siteConfig = {
-  name: "LUN",
-  title: "LUN — 화면 의존을 줄이는 오디오 인터페이스 연구",
+  name: "LUNDA",
+  title: "LUNDA — 화면 의존을 줄이는 오디오 인터페이스 연구",
   description:
-    "LUN은 스마트폰 화면에 대한 의존을 줄이고, 이동과 일상 속에서 더 자연스럽게 오디오를 이용할 수 있는 새로운 인터페이스를 연구·개발합니다.",
+    "LUNDA는 스마트폰 화면에 대한 의존을 줄이고, 이동과 일상 속에서 더 자연스럽게 오디오를 이용할 수 있는 새로운 인터페이스를 연구·개발합니다.",
   url: resolveSiteUrl(),
 } as const;
 
@@ -32,7 +32,7 @@ export interface NavItem {
 }
 
 export const navItems: NavItem[] = [
-  { label: "LUN 소개", href: "/about" },
+  { label: "LUNDA 소개", href: "/about" },
   { label: "연구 방향", href: "/research" },
   { label: "PR1", href: "/projects/pr1" },
   { label: "PR2", href: "/projects/pr2" },
@@ -40,7 +40,7 @@ export const navItems: NavItem[] = [
 ];
 
 export const ctaLinks = {
-  about: { label: "LUN 소개", href: "/about" },
+  about: { label: "LUNDA 소개", href: "/about" },
   research: { label: "연구 방향", href: "/research" },
   contact: { label: "문의하기", href: "/contact" },
 } as const;

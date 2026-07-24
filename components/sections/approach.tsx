@@ -2,10 +2,12 @@ import { approachSection } from "@/content/lun-content";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { ContentIcon } from "@/components/ui/icon";
 import { Reveal } from "@/components/ui/reveal";
+import { SpotlightCard } from "@/components/ui/spotlight-card";
 
 export function Approach() {
   return (
-    <section className="border-y border-line-100 bg-surface">
+    // 배경 투명 → 뒤 오로라가 비쳐 글래스 카드가 유리로 읽힌다
+    <section className="border-y border-line-100/60">
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
         <Reveal>
           <SectionHeading
@@ -18,7 +20,7 @@ export function Approach() {
         <div className="mt-12 grid gap-6 md:grid-cols-3">
           {approachSection.cards.map((card, index) => (
             <Reveal key={card.key} delay={index * 100}>
-              <article className="h-full rounded-(--radius-card) border border-line-100 bg-paper p-7 shadow-card transition-shadow duration-200 hover:shadow-card-hover">
+              <SpotlightCard className="glass-strong h-full rounded-(--radius-card) p-7">
                 <div className="flex items-center justify-between">
                   <span className="flex size-11 items-center justify-center rounded-full bg-marina-700 text-white">
                     <ContentIcon name={card.icon} className="size-5" />
@@ -36,7 +38,7 @@ export function Approach() {
                 <p className="mt-3 text-sm leading-relaxed text-ink-500">
                   {card.description}
                 </p>
-              </article>
+              </SpotlightCard>
             </Reveal>
           ))}
         </div>

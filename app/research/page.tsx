@@ -4,6 +4,7 @@ import { PageHero } from "@/components/layout/page-hero";
 import { ContentIcon } from "@/components/ui/icon";
 import { ButtonLink } from "@/components/ui/button-link";
 import { Reveal } from "@/components/ui/reveal";
+import { SpotlightCard } from "@/components/ui/spotlight-card";
 
 export const metadata: Metadata = {
   title: "Research — 연구 및 기록",
@@ -23,7 +24,7 @@ export default function ResearchPage() {
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {researchSection.categories.map((category, index) => (
             <Reveal key={category.title} delay={Math.min(index * 80, 240)}>
-              <article className="flex h-full flex-col rounded-(--radius-card) border border-line-100 bg-surface p-7 shadow-card">
+              <SpotlightCard className="glass-strong flex h-full flex-col rounded-(--radius-card) p-7">
                 <div className="flex items-center justify-between">
                   <span className="flex size-11 items-center justify-center rounded-full bg-marina-50 text-marina-700">
                     <ContentIcon name={category.icon} className="size-5" />
@@ -38,7 +39,7 @@ export default function ResearchPage() {
                 <p className="mt-2 flex-1 text-sm leading-relaxed text-ink-500">
                   {category.description}
                 </p>
-              </article>
+              </SpotlightCard>
             </Reveal>
           ))}
         </div>
@@ -50,7 +51,7 @@ export default function ResearchPage() {
             현재의 연구는 PR1에서 가장 먼저 구체화됩니다.
           </h2>
           <p className="mt-3 max-w-2xl text-sm leading-relaxed text-ink-500 sm:text-base">
-            LUN의 연구 방향이 실제 사용자 경험으로 어떻게 이어지는지 PR1에서
+            LUNDA의 연구 방향이 실제 사용자 경험으로 어떻게 이어지는지 PR1에서
             확인하실 수 있습니다.
           </p>
           <div className="mt-7 flex w-full flex-col justify-center gap-3 sm:w-auto sm:flex-row">

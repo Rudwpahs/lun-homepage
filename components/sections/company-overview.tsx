@@ -6,7 +6,7 @@ import { Reveal } from "@/components/ui/reveal";
 import { SectionHeading } from "@/components/ui/section-heading";
 
 /**
- * 문제 → LUN의 접근 → PR1 → PR2 관계를 설명하는 공개용 브랜드 구조도.
+ * 문제 → LUNDA의 접근 → PR1 → PR2 관계를 설명하는 공개용 브랜드 구조도.
  * 내부 prestudy의 구현·검증 데이터는 이 시각화에 포함하지 않습니다.
  */
 export function CompanyOverview() {
@@ -53,7 +53,7 @@ export function CompanyOverview() {
           <div aria-hidden className="mx-auto h-8 w-px bg-line-300" />
 
           <ol
-            aria-label="LUN의 문제 인식부터 미래 연구까지"
+            aria-label="LUNDA의 문제 인식부터 미래 연구까지"
             className="flex flex-col lg:flex-row lg:items-stretch"
           >
             {companyOverview.journey.map((step, index) => {

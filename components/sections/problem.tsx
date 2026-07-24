@@ -6,7 +6,7 @@ import { Reveal } from "@/components/ui/reveal";
 /**
  * 문제 정의 섹션.
  * 분할선 그리드 레이아웃은 21st.dev "Grid Feature Cards"(id 2070)의
- * 구조를 참고해 LUN 디자인 시스템에 맞게 재구성한 것입니다.
+ * 구조를 참고해 LUNDA 디자인 시스템에 맞게 재구성한 것입니다.
  */
 export function Problem() {
   return (
@@ -20,10 +20,13 @@ export function Problem() {
       </Reveal>
 
       <Reveal delay={100}>
-        {/* gap-px + 배경색으로 셀 사이 1px 분할선을 만드는 그리드 */}
-        <ul className="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-(--radius-card) border border-line-100 bg-line-100 sm:grid-cols-2 lg:grid-cols-3">
+        {/*
+          하나의 프로스티드 글래스 패널을 gap-px로 나눠 셀 사이 미세 분할선을 만든다.
+          블러는 패널(.glass)에만 걸고 셀은 반투명 흰색만 얹어 셀별 중복 블러를 피한다.
+        */}
+        <ul className="glass mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-(--radius-card) sm:grid-cols-2 lg:grid-cols-3">
           {problemSection.points.map((point) => (
-            <li key={point.title} className="bg-surface p-6">
+            <li key={point.title} className="bg-white/70 p-6">
               <ContentIcon
                 name={point.icon}
                 className="size-6 text-marina-600"
@@ -36,9 +39,9 @@ export function Problem() {
               </p>
             </li>
           ))}
-          <li className="flex items-center bg-marina-50 p-6">
+          <li className="flex items-center bg-marina-50/75 p-6">
             <p className="text-sm leading-relaxed font-medium text-marina-800">
-              LUN은 이 지점을 &lsquo;공간 단위 오디오&rsquo;라는 관점에서
+              LUNDA는 이 지점을 &lsquo;공간 단위 오디오&rsquo;라는 관점에서
               실험과 검증으로 확인하려 합니다.
             </p>
           </li>

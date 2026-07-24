@@ -128,7 +128,7 @@ export default function Pr1Page() {
         </div>
         <div className="mt-10 flex flex-col gap-3 pb-6 sm:flex-row">
           <ButtonLink href="/research" showArrow>
-            LUN 연구 방향 보기
+            LUNDA 연구 방향 보기
           </ButtonLink>
           <ButtonLink href="/contact" variant="secondary">
             문의하기

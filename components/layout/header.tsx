@@ -15,7 +15,7 @@ export function Header() {
   const pathname = usePathname();
 
   useEffect(() => {
-    const updateScrolled = () => setScrolled(window.scrollY > 12);
+    const updateScrolled = () => setScrolled(window.scrollY > 8);
     updateScrolled();
     window.addEventListener("scroll", updateScrolled, { passive: true });
     return () => window.removeEventListener("scroll", updateScrolled);
@@ -34,7 +34,12 @@ export function Header() {
 
   return (
     <header className="sticky top-3 z-50 px-3">
-      <div className={cn("liquid-nav mx-auto max-w-6xl", scrolled && "is-scrolled")}>
+      <div
+        className={cn(
+          "liquid-nav mx-auto max-w-6xl",
+          (scrolled || menuOpen) && "is-scrolled",
+        )}
+      >
         <div className="flex h-16 items-center justify-between gap-4 px-4 sm:px-6">
           <Logo />
 

@@ -1,11 +1,11 @@
 /**
- * LUN 웹사이트 콘텐츠 데이터.
+ * LUNDA 웹사이트 콘텐츠 데이터.
  *
  * 페이지 문구는 최대한 이 파일에서 관리합니다. 문구를 수정할 때는
  * 컴포넌트 코드가 아니라 이 파일을 수정하세요.
  *
  * 진실성 원칙 (09_TRUTH_AND_SAFETY_RULES 기준):
- * - 이 사이트는 LUN 회사와 공개 가능한 연구 방향을 소개합니다.
+ * - 이 사이트는 LUNDA 회사와 공개 가능한 연구 방향을 소개합니다.
  * - prestudy의 보드·패킷·프로토콜·테스트 데이터는 홈페이지 콘텐츠와 분리합니다.
  * - PR1은 "현재 핵심 개발 프로젝트"이며 완제품이 아닙니다.
  * - PR2는 "미래 연구 프로젝트"이며 PR1 검증 이후 구체화됩니다.
@@ -22,12 +22,12 @@ export const statusLabels: Record<ProjectStatus, string> = {
 };
 
 export const brand = {
-  name: "LUN",
+  name: "LUNDA",
   tagline: "화면에서 벗어나도, 연결은 계속됩니다.",
   description:
-    "LUN은 스마트폰 화면에 대한 의존을 줄이고, 이동과 일상 속에서 더 자연스럽게 오디오를 이용할 수 있는 새로운 인터페이스를 연구합니다.",
+    "LUNDA는 스마트폰 화면에 대한 의존을 줄이고, 이동과 일상 속에서 더 자연스럽게 오디오를 이용할 수 있는 새로운 인터페이스를 연구합니다.",
   vision:
-    "LUN은 사람을 화면에 더 오래 붙잡아 두는 기술이 아니라, 필요한 순간에 기술이 자연스럽게 뒤로 물러나는 경험을 연구합니다.",
+    "LUNDA는 사람을 화면에 더 오래 붙잡아 두는 기술이 아니라, 필요한 순간에 기술이 자연스럽게 뒤로 물러나는 경험을 연구합니다.",
   values: [
     {
       key: "Screen-light",
@@ -92,9 +92,9 @@ export const problemSection = {
 } as const;
 
 export const approachSection = {
-  title: "LUN의 접근 방식",
+  title: "LUNDA의 접근 방식",
   description:
-    "LUN은 화면과 오디오를 분리하는 것에서 출발해, 공간에 맞는 연결 방식을 검증하고, 화면 없는 청취 경험을 설계합니다.",
+    "LUNDA는 화면과 오디오를 분리하는 것에서 출발해, 공간에 맞는 연결 방식을 검증하고, 화면 없는 청취 경험을 설계합니다.",
   cards: [
     {
       key: "Separate",
@@ -120,11 +120,11 @@ export const approachSection = {
 } as const;
 
 export const companyOverview = {
-  title: "LUN은 하나의 질문에서 출발합니다.",
+  title: "LUNDA는 하나의 질문에서 출발합니다.",
   description:
-    "어떻게 하면 필요한 오디오는 남기고, 화면은 자연스럽게 뒤로 물러나게 할 수 있을까요? LUN의 현재 개발과 미래 연구는 이 질문에서 연결됩니다.",
+    "어떻게 하면 필요한 오디오는 남기고, 화면은 자연스럽게 뒤로 물러나게 할 수 있을까요? LUNDA의 현재 개발과 미래 연구는 이 질문에서 연결됩니다.",
   core: {
-    label: "LUN / Company Direction",
+    label: "LUNDA / Company Direction",
     title: "화면 의존을 줄이는 오디오 인터페이스",
     description:
       "필요한 소리는 이어지고 화면은 뒤로 물러나는 경험을 연구·개발합니다.",
@@ -141,8 +141,8 @@ export const companyOverview = {
       icon: "smartphone",
     },
     {
-      label: "LUN Approach",
-      labelKo: "LUN의 접근",
+      label: "LUNDA Approach",
+      labelKo: "LUNDA의 접근",
       title: "화면과 청취 경험을 분리합니다.",
       description:
         "기술이 앞에 드러나기보다, 필요한 순간에 자연스럽게 뒤로 물러나는 사용 경험을 설계합니다.",
@@ -182,7 +182,7 @@ export const pr1 = {
   title: "분리형 무선 오디오 시스템",
   headline: "PR1: 화면과 청취를 분리하는 오디오 경험",
   description:
-    "PR1은 스마트폰을 계속 들고 화면을 확인하지 않아도 필요한 오디오를 개인 청취 장치로 이어 주는 LUN의 현재 핵심 프로젝트입니다.",
+    "PR1은 스마트폰을 계속 들고 화면을 확인하지 않아도 필요한 오디오를 개인 청취 장치로 이어 주는 LUNDA의 현재 핵심 프로젝트입니다.",
   coreIdea:
     "오디오가 시작되는 자리와 사람이 듣는 자리를 분리해, 화면은 멀리 두고 필요한 소리만 자연스럽게 이어지는 경험을 설계합니다.",
   diagram: [
@@ -347,9 +347,9 @@ export const pr2Roadmap: RoadmapStep[] = [
 ];
 
 export const developmentSection = {
-  title: "LUN은 문제부터 검증합니다.",
+  title: "LUNDA는 문제부터 검증합니다.",
   description:
-    "외부에 공개하는 개발 페이지는 부품 목록이나 실험 로그가 아니라, LUN이 어떤 기준으로 제품을 연구하고 판단하는지 설명합니다.",
+    "외부에 공개하는 개발 페이지는 부품 목록이나 실험 로그가 아니라, LUNDA가 어떤 기준으로 제품을 연구하고 판단하는지 설명합니다.",
   principles: [
     {
       key: "Problem First",
@@ -401,13 +401,13 @@ export const developmentSection = {
     },
   ],
   disclosure:
-    "LUN은 확인되지 않은 성능, 완성되지 않은 제품, 확정되지 않은 일정은 성과처럼 표현하지 않습니다.",
+    "LUNDA는 확인되지 않은 성능, 완성되지 않은 제품, 확정되지 않은 일정은 성과처럼 표현하지 않습니다.",
 } as const;
 
 export const researchSection = {
-  title: "LUN의 연구 방향",
+  title: "LUNDA의 연구 방향",
   description:
-    "LUN은 특정 부품이나 하나의 제품 형태보다, 화면 의존을 줄이는 오디오 경험을 중심으로 연구합니다.",
+    "LUNDA는 특정 부품이나 하나의 제품 형태보다, 화면 의존을 줄이는 오디오 경험을 중심으로 연구합니다.",
   categories: [
     {
       label: "Experience",
@@ -500,14 +500,14 @@ export const pr1Story = {
 } as const;
 
 export const aboutSection = {
-  title: "LUN에 대하여",
+  title: "LUNDA에 대하여",
   definition:
-    "LUN은 스마트폰 화면에 대한 의존을 줄이고, 이동과 일상 속에서 더 자연스럽게 오디오를 이용할 수 있는 새로운 오디오 인터페이스를 연구하는 기술 프로젝트 브랜드입니다.",
+    "LUNDA는 스마트폰 화면에 대한 의존을 줄이고, 이동과 일상 속에서 더 자연스럽게 오디오를 이용할 수 있는 새로운 오디오 인터페이스를 연구하는 기술 프로젝트 브랜드입니다.",
   philosophy: [
     "현대 사용자는 음악, 알림, 안내, 학습, 운동 기록 등 많은 정보를 스마트폰을 통해 이용합니다. 하지만 오디오를 듣는 순간에도 스마트폰을 계속 소지하거나 화면을 확인해야 하는 경우가 많습니다.",
-    "LUN은 기술을 더 오래 보게 만드는 것이 아니라, 필요한 순간에 기술이 자연스럽게 뒤로 물러나는 경험을 목표로 합니다.",
-    "그래서 LUN의 모든 프로젝트는 실제 하드웨어와 실험을 기반으로, 과장 없이 단계적으로 검증하며 진행됩니다.",
+    "LUNDA는 기술을 더 오래 보게 만드는 것이 아니라, 필요한 순간에 기술이 자연스럽게 뒤로 물러나는 경험을 목표로 합니다.",
+    "그래서 LUNDA의 모든 프로젝트는 실제 하드웨어와 실험을 기반으로, 과장 없이 단계적으로 검증하며 진행됩니다.",
   ],
   currentState:
-    "LUN은 현재 제품을 판매하고 있지 않으며, PR1의 사용자 가치와 구현 가능성을 단계적으로 확인하고 있습니다.",
+    "LUNDA는 현재 제품을 판매하고 있지 않으며, PR1의 사용자 가치와 구현 가능성을 단계적으로 확인하고 있습니다.",
 } as const;

@@ -3,16 +3,17 @@ import "./globals.css";
 import { siteConfig } from "@/lib/site-config";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { AuroraBackground } from "@/components/sections/aurora-background";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
     default: siteConfig.title,
-    template: "%s | LUN",
+    template: "%s | LUNDA",
   },
   description: siteConfig.description,
   keywords: [
-    "LUN",
+    "LUNDA",
     "오디오 인터페이스",
     "무선 오디오",
     "오픈이어",
@@ -50,8 +51,10 @@ export default function RootLayout({
         >
           본문 바로가기
         </a>
+        {/* 전역 오로라 배경 (z-0). 콘텐츠는 z-10 이상으로 올려 위에 얹는다. */}
+        <AuroraBackground />
         <Header />
-        <main id="main-content" className="flex-1">
+        <main id="main-content" className="relative z-10 flex-1">
           {children}
         </main>
         <Footer />

@@ -60,7 +60,7 @@ export function RoadmapTimeline({ steps, className }: RoadmapTimelineProps) {
               className={cn("flex-1", !isLast && "pb-8")}
               delay={Math.min(index * 60, 240)}
             >
-              <div className="rounded-(--radius-card) border border-line-100 bg-surface p-5 shadow-card">
+              <div className="glass rounded-(--radius-card) p-5">
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <h3 className="font-bold text-marina-900">
                     <span className="mr-2 text-sm font-semibold tracking-widest text-line-300">

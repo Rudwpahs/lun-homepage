@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "LUN — Screen-light Audio Interface Research";
+export const alt = "LUNDA — Screen-light Audio Interface Research";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -43,7 +43,7 @@ export default function OgImage() {
             marginTop: 24,
           }}
         >
-          LUN
+          LUNDA
         </div>
         <div
           style={{

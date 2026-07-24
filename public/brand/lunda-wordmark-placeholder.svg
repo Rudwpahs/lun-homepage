@@ -1,0 +1,7 @@
+<svg width="280" height="72" viewBox="0 0 280 72" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">LUNDA placeholder wordmark</title>
+  <desc id="desc">Temporary LUNDA wordmark placeholder using marina blue text and a simple wave mark.</desc>
+  <rect width="280" height="72" rx="20" fill="#F7FAFC"/>
+  <path d="M28 42C39 26 52 26 64 42C76 58 89 58 100 42" stroke="#0B4F6C" stroke-width="5" stroke-linecap="round"/>
+  <text x="120" y="47" font-family="Inter, Arial, sans-serif" font-size="32" font-weight="700" letter-spacing="4" fill="#0B2D3A">LUNDA</text>
+</svg>

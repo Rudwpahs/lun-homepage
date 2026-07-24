@@ -5,7 +5,7 @@ import { Logo } from "@/components/layout/logo";
 
 export function Footer() {
   return (
-    <footer className="bg-marina-950 text-marina-100">
+    <footer className="relative z-10 bg-marina-950 text-marina-100">
       <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
         <div className="flex flex-col justify-between gap-10 md:flex-row">
           <div className="max-w-sm">
@@ -36,11 +36,11 @@ export function Footer() {
 
         <div className="mt-12 border-t border-white/10 pt-6 text-xs leading-relaxed text-marina-100/60">
           <p>
-            LUN은 화면 의존을 줄이는 오디오 인터페이스를 연구·개발하고 있으며,
+            LUNDA는 화면 의존을 줄이는 오디오 인터페이스를 연구·개발하고 있으며,
             아직 제품을 판매하지 않습니다. 이 사이트는 공개 가능한 회사 방향과
             연구 프로젝트를 설명합니다.
           </p>
-          <p className="mt-2">© {new Date().getFullYear()} LUN. All rights reserved.</p>
+          <p className="mt-2">© {new Date().getFullYear()} LUNDA. All rights reserved.</p>
         </div>
       </div>
     </footer>

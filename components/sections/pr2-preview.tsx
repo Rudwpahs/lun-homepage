@@ -2,6 +2,7 @@ import { pr2 } from "@/content/lun-content";
 import { Badge } from "@/components/ui/badge";
 import { ButtonLink } from "@/components/ui/button-link";
 import { Reveal } from "@/components/ui/reveal";
+import { SpotlightCard } from "@/components/ui/spotlight-card";
 
 /**
  * 홈 화면 PR2 소개 섹션.
@@ -11,7 +12,7 @@ export function Pr2Preview() {
   return (
     <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
       <Reveal>
-        <div className="rounded-(--radius-card) border border-line-100 bg-surface p-7 shadow-card sm:p-10">
+        <SpotlightCard className="glass-strong rounded-(--radius-card) p-7 sm:p-10">
           <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
             <div className="max-w-2xl">
               <div className="flex flex-wrap items-center gap-3">
@@ -46,7 +47,7 @@ export function Pr2Preview() {
               PR2 살펴보기
             </ButtonLink>
           </div>
-        </div>
+        </SpotlightCard>
       </Reveal>
     </section>
   );
