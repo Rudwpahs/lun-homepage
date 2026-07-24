@@ -154,7 +154,7 @@ body {
   border-radius: 50%;
   filter: blur(70px);
   /* 투명 섹션 뒤 본문 텍스트 대비를 지키기 위해 옅게 유지 (WCAG AA 검증 완료) */
-  opacity: 0.3;
+  opacity: 0.22;
   will-change: transform;
 }
 
@@ -173,7 +173,7 @@ body {
   top: 8vh;
   right: -8vw;
   background: radial-gradient(circle at center, var(--color-aqua-300), transparent 66%);
-  opacity: 0.14;
+  opacity: 0.09;
   animation: aurora-drift-2 32s ease-in-out infinite alternate;
 }
 
@@ -183,7 +183,7 @@ body {
   bottom: -18vw;
   left: 22vw;
   background: radial-gradient(circle at center, var(--color-marina-100), transparent 70%);
-  opacity: 0.28;
+  opacity: 0.18;
   animation: aurora-drift-3 38s ease-in-out infinite alternate;
 }
 
@@ -331,14 +331,27 @@ body {
   background:
     radial-gradient(circle at 18% -20%, rgb(255 255 255 / 0.92), transparent 34%),
     linear-gradient(120deg, transparent 48%, rgb(122 208 217 / 0.1), transparent 72%);
+  background-size: 160% 160%, 220% 100%;
   content: "";
   pointer-events: none;
+  animation: nav-liquid-flow 14s ease-in-out infinite alternate;
 }
 
 .liquid-nav.is-scrolled {
   border-color: rgb(255 255 255 / 0.78);
   background: rgb(248 250 251 / 0.86);
   box-shadow: var(--shadow-glass);
+}
+
+@keyframes nav-liquid-flow {
+  from {
+    background-position: 0% 20%, -40% 0%;
+    transform: translate3d(-2%, 0, 0);
+  }
+  to {
+    background-position: 100% 80%, 130% 0%;
+    transform: translate3d(2%, 0, 0);
+  }
 }
 
 .nav-link {
@@ -597,7 +610,8 @@ body {
 
   .signal-line,
   .signal-pulse,
-  .aurora__blob {
+  .aurora__blob,
+  .liquid-nav::before {
     animation: none;
   }
 
