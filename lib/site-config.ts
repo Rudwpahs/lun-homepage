@@ -36,11 +36,9 @@ export const navItems: NavItem[] = [
   { label: "연구 방향", href: "/research" },
   { label: "PR1", href: "/projects/pr1" },
   { label: "PR2", href: "/projects/pr2" },
-  { label: "문의", href: "/contact" },
 ];
 
 export const ctaLinks = {
   about: { label: "LUNDA 소개", href: "/about" },
   research: { label: "연구 방향", href: "/research" },
-  contact: { label: "문의하기", href: "/contact" },
 } as const;

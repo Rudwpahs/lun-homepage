@@ -115,9 +115,6 @@ export default function Pr2Page() {
           <ButtonLink href="/projects/pr1" showArrow>
             현재 진행 중인 PR1 보기
           </ButtonLink>
-          <ButtonLink href="/contact" variant="secondary">
-            의견 남기기
-          </ButtonLink>
         </div>
       </section>
     </>

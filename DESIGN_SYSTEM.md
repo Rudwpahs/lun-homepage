@@ -191,7 +191,6 @@ PR1 상세 페이지 상단의 캔버스 프레임 스크럽 섹션 1곳에 한�
 - `--glass-bg` 불투명도(0.62/0.82)는 **낮추지 말 것** — 카드 위 본문 대비의 하한을 지탱함.
 - 본문 텍스트를 가공되지 않은 오로라 위에 직접 올리지 말 것 (글래스/불투명 표면을 경유).
 - 모든 글래스·오로라·스포트라이트 모션은 `prefers-reduced-motion`에서 정지(CSS + SpotlightCard JS 이중 가드).
-- 문의 폼 입력 필드는 가독성을 위해 불투명 유지(글래스 미적용).
 
 ## 12. 반응형 기준
 
@@ -210,8 +209,7 @@ PR1 상세 페이지 상단의 캔버스 프레임 스크럽 섹션 1곳에 한�
 - 시맨틱 HTML: `header/nav/main/footer/section/article`, `ol` 타임라인, `dl` 상태 설명.
 - 페이지당 `h1` 1개, 제목 레벨 건너뛰기 없음 (자동 검증 완료).
 - 키보드: 스킵 링크("본문 바로가기"), `:focus-visible` 2px marina-600 아웃라인.
-- `aria-label`(아이콘 버튼·다이어그램), `aria-expanded`/`aria-controls`(모바일 메뉴), `aria-current="page"`(활성 메뉴), `aria-live="polite"`(폼 결과), `role="note"`(고지).
-- 폼: 모든 입력에 `<label for>` 연결, `autocomplete` 지정.
+- `aria-label`(아이콘 버튼·다이어그램), `aria-expanded`/`aria-controls`(모바일 메뉴), `aria-current="page"`(활성 메뉴), `role="note"`(고지).
 - 색상 단독 정보 전달 금지 — 상태는 항상 아이콘+텍스트 병행.
 - 모든 실사용 색 조합 WCAG AA 이상 (2절 표 참고).
 - `prefers-reduced-motion` 전면 지원.

@@ -58,9 +58,6 @@ export default function ResearchPage() {
             <ButtonLink href="/projects/pr1" showArrow>
               PR1 살펴보기
             </ButtonLink>
-            <ButtonLink href="/contact" variant="secondary">
-              문의하기
-            </ButtonLink>
           </div>
         </div>
       </section>

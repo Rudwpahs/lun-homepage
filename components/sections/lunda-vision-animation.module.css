@@ -1,9 +1,16 @@
-.section {
+.story {
+  position: relative;
+  height: 250svh;
+}
+
+.sticky {
+  position: sticky;
+  top: 4.75rem;
   display: grid;
-  min-height: calc(100svh - 4rem);
+  height: calc(100svh - 4.75rem);
   place-items: center;
   overflow: hidden;
-  padding: clamp(1.25rem, 4vw, 3rem);
+  padding: clamp(1rem, 3vw, 2.5rem);
 }
 
 .stage {
@@ -11,6 +18,26 @@
   --vision-y: 32%;
   --vision-rotate-x: 0deg;
   --vision-rotate-y: 0deg;
+  --e-opacity: 0;
+  --e-x: -3.8em;
+  --e-scale: 0.72;
+  --e-blur: 10px;
+  --lunda-x: -0.38em;
+  --latin-opacity: 1;
+  --latin-blur: 0px;
+  --korean-opacity: 0;
+  --korean-scale: 0.88;
+  --korean-blur: 14px;
+  --korean-spacing: 0.28em;
+  --tagline-opacity: 0;
+  --tagline-y: 0.75rem;
+  --final-opacity: 0;
+  --final-blur: 12px;
+  --final-scale: 0.94;
+  --ring-opacity: 0;
+  --ring-scale: 0.28;
+  --start-cue-opacity: 1;
+  --end-cue-opacity: 0;
   position: relative;
   width: min(100%, 68rem);
   isolation: isolate;
@@ -99,7 +126,8 @@
 }
 
 .latinWord,
-.koreanWord {
+.koreanWord,
+.finalWord {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -109,21 +137,27 @@
   line-height: 0.9;
   white-space: nowrap;
   text-shadow: 0 10px 32px rgb(11 79 108 / 0.1);
+  will-change: opacity, filter, transform;
 }
 
 .latinWord {
   display: inline-flex;
   align-items: baseline;
+  opacity: var(--latin-opacity);
+  filter: blur(var(--latin-blur));
   letter-spacing: 0.075em;
   transform: translate(-50%, -50%);
-  animation: latin-dissolve 6.2s both;
 }
 
 .joiningE {
   position: relative;
   display: inline-block;
+  opacity: var(--e-opacity);
   color: var(--color-aqua-500);
-  animation: e-arrive 6.2s both;
+  filter: blur(var(--e-blur));
+  transform: translateX(var(--e-x)) scale(var(--e-scale));
+  transform-origin: center;
+  will-change: opacity, filter, transform;
 }
 
 .joiningE::before {
@@ -142,13 +176,22 @@
 
 .lunda {
   display: inline-block;
-  animation: lunda-shift 6.2s both;
+  transform: translateX(var(--lunda-x));
+  will-change: transform;
 }
 
 .koreanWord {
-  letter-spacing: 0.08em;
-  transform: translate(-50%, -50%);
-  animation: korean-reveal 6.2s both;
+  opacity: var(--korean-opacity);
+  filter: blur(var(--korean-blur));
+  letter-spacing: var(--korean-spacing);
+  transform: translate(-50%, -50%) scale(var(--korean-scale));
+}
+
+.finalWord {
+  opacity: var(--final-opacity);
+  filter: blur(var(--final-blur));
+  letter-spacing: 0.075em;
+  transform: translate(-50%, -50%) scale(var(--final-scale));
 }
 
 .fusionRing {
@@ -157,21 +200,23 @@
   left: calc(50% - clamp(4.75rem, 13vw, 11.5rem));
   width: clamp(5rem, 13vw, 8.5rem);
   aspect-ratio: 1;
+  opacity: var(--ring-opacity);
   border: 1px solid rgb(53 181 194 / 0.58);
   border-radius: 999px;
   box-shadow:
     0 0 36px rgb(122 208 217 / 0.28),
     inset 0 0 24px rgb(255 255 255 / 0.48);
-  transform: translate(-50%, -50%);
-  animation: fusion-wave 6.2s both;
+  transform: translate(-50%, -50%) scale(var(--ring-scale));
+  will-change: opacity, transform;
 }
 
 .tagline {
   position: absolute;
   z-index: 1;
   right: 1.5rem;
-  bottom: clamp(2.25rem, 8vw, 4.5rem);
+  bottom: clamp(2.75rem, 8vw, 4.5rem);
   left: 1.5rem;
+  opacity: var(--tagline-opacity);
   margin: 0;
   color: var(--color-marina-800);
   font-size: clamp(1rem, 2.2vw, 1.35rem);
@@ -179,108 +224,38 @@
   line-height: 1.5;
   text-align: center;
   text-wrap: balance;
-  animation: tagline-reveal 6.2s both;
+  transform: translateY(var(--tagline-y));
+  will-change: opacity, transform;
 }
 
-@keyframes e-arrive {
-  0%,
-  18% {
-    opacity: 0;
-    filter: blur(10px);
-    transform: translateX(-3.6em) scale(0.72);
-  }
-
-  38%,
-  50% {
-    opacity: 1;
-    filter: blur(0);
-    transform: translateX(0) scale(1);
-  }
-
-  62%,
-  100% {
-    opacity: 0;
-    filter: blur(12px);
-    transform: translateX(0) scale(1.03);
-  }
+.cue {
+  position: absolute;
+  z-index: 1;
+  bottom: 1.2rem;
+  left: 50%;
+  color: var(--color-marina-700);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  pointer-events: none;
+  transform: translateX(-50%);
 }
 
-@keyframes lunda-shift {
-  0%,
-  18% {
-    transform: translateX(-0.37em);
-  }
-
-  38%,
-  100% {
-    transform: translateX(0);
-  }
+.cue::after {
+  display: block;
+  width: 1px;
+  height: 1.1rem;
+  margin: 0.45rem auto 0;
+  background: linear-gradient(var(--color-marina-500), transparent);
+  content: "";
 }
 
-@keyframes latin-dissolve {
-  0%,
-  49% {
-    opacity: 1;
-    filter: blur(0);
-  }
-
-  62%,
-  100% {
-    opacity: 0;
-    filter: blur(14px);
-  }
+.startCue {
+  opacity: var(--start-cue-opacity);
 }
 
-@keyframes korean-reveal {
-  0%,
-  51% {
-    opacity: 0;
-    filter: blur(14px);
-    letter-spacing: 0.28em;
-    transform: translate(-50%, -50%) scale(0.88);
-  }
-
-  68%,
-  100% {
-    opacity: 1;
-    filter: blur(0);
-    letter-spacing: 0.08em;
-    transform: translate(-50%, -50%) scale(1);
-  }
-}
-
-@keyframes fusion-wave {
-  0%,
-  32% {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.28);
-  }
-
-  39% {
-    opacity: 0.8;
-  }
-
-  56%,
-  100% {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(2.4);
-  }
-}
-
-@keyframes tagline-reveal {
-  0%,
-  66% {
-    opacity: 0;
-    filter: blur(6px);
-    transform: translateY(0.75rem);
-  }
-
-  82%,
-  100% {
-    opacity: 1;
-    filter: blur(0);
-    transform: translateY(0);
-  }
+.endCue {
+  opacity: var(--end-cue-opacity);
 }
 
 @supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
@@ -298,31 +273,46 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .story {
+    height: auto;
+  }
+
+  .sticky {
+    position: relative;
+    top: auto;
+    min-height: 32rem;
+  }
+
   .glass {
     transform: none;
     transition: none;
   }
 
-  .latinWord,
-  .fusionRing {
+  .joiningE,
+  .fusionRing,
+  .koreanWord,
+  .finalWord,
+  .tagline,
+  .cue {
     display: none;
   }
 
-  .koreanWord,
-  .tagline {
+  .latinWord {
     opacity: 1;
     filter: none;
-    transform: translate(-50%, -50%);
-    animation: none;
   }
 
-  .tagline {
+  .lunda {
     transform: none;
   }
 }
 
 @media (max-width: 420px) {
-  .section {
+  .story {
+    height: 235svh;
+  }
+
+  .sticky {
     padding-inline: 0.75rem;
   }
 
@@ -332,7 +322,14 @@
   }
 
   .latinWord,
-  .koreanWord {
+  .koreanWord,
+  .finalWord {
     font-size: clamp(3rem, 17vw, 4.4rem);
+  }
+}
+
+@media (max-width: 420px) and (prefers-reduced-motion: reduce) {
+  .story {
+    height: auto;
   }
 }

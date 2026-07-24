@@ -78,9 +78,6 @@ export default function AboutPage() {
               <ButtonLink href="/research" showArrow>
                 연구 방향 보기
               </ButtonLink>
-              <ButtonLink href="/contact" variant="secondary">
-                문의하기
-              </ButtonLink>
             </div>
           </Reveal>
         </div>

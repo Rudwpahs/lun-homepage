@@ -45,13 +45,11 @@ app/                    # 라우트 (App Router)
   development/          # LUNDA의 개발 원칙
   research/             # 공개 연구 방향
   about/                # 브랜드 비전
-  contact/              # 문의 폼 (개발용)
   sitemap.ts robots.ts opengraph-image.tsx
 components/
   layout/               # Header, Footer, Logo, PageHero
   sections/             # 홈·상세 페이지 섹션
   ui/                   # Badge, ButtonLink, SectionHeading, Reveal, Icon
-  contact/              # ContactForm
 content/
   lun-content.ts        # ★ 모든 사이트 문구·데이터 (콘텐츠와 UI 분리)
 lib/
@@ -66,13 +64,12 @@ design-system/lun/      # UI UX Pro Max 생성 원본 (참고용)
 
 | 경로 | 내용 |
 |---|---|
-| `/` | 히어로, **LUNDA 회사 서사 시각화**, 비전, 문제, 접근 방식, PR1·PR2, 문의 CTA |
+| `/` | 스크롤 연동 `LUNDA → ELUNDA → 이룬다 → LUNDA` 브랜드 시퀀스와 짧은 회사 소개 |
 | `/projects/pr1` | PR1 개요, **스크롤 개념 스토리(Separate→Connect→Listen)**, 공개용 경험 흐름, 제품 경험 기준, 정직 고지 |
 | `/projects/pr2` | PR2 키워드·연구 방향, PR1과의 관계, 5단계 로드맵, 정직 고지 |
 | `/development` | 문제 우선·단계 검증·근거 우선·책임 있는 제품화 원칙 |
 | `/research` | Screen-light, Spatial Audio Interface 등 6개 공개 연구 방향 |
 | `/about` | 브랜드 정의, 철학, 비전 인용, 6가지 가치 |
-| `/contact` | 문의 폼 — **백엔드 미연결(개발용) 상태를 UI에 명시** |
 
 ## 콘텐츠 수정 방법
 
@@ -113,18 +110,6 @@ design-system/lun/      # UI UX Pro Max 생성 원본 (참고용)
 2. `logo.tsx` 내부의 임시 웨이브 SVG를 `<Image>` 또는 인라인 SVG로 교체
 3. `onDark` prop(푸터용 밝은 버전) 분기를 유지
 
-## 문의 폼 백엔드 연결 방법
-
-`components/contact/contact-form.tsx`는 현재 어떤 서버로도 데이터를 보내지 않으며,
-제출 시 "전송되지 않았습니다" 안내를 표시합니다(허위 성공 표시 금지).
-
-연결 절차:
-
-1. `app/api/contact/route.ts` 생성 — `POST` 핸들러에서 이메일 발송(예: Resend) 또는 스프레드시트/DB 저장
-2. `contact-form.tsx`의 `handleSubmit`에서 `fetch("/api/contact", { method: "POST", body: ... })` 호출로 교체
-3. 성공/실패 상태를 실제 응답 기준으로 표시하고, 개발용 안내 배너(`devNotice`) 제거
-4. 스팸 방지(rate limit, honeypot) 추가 권장
-
 ## 배포 방법
 
 1. **Vercel**: 저장소를 import하면 별도 설정 없이 배포됩니다. sitemap·OG의 절대 URL은
@@ -138,7 +123,6 @@ design-system/lun/      # UI UX Pro Max 생성 원본 (참고용)
 
 ## 아직 미완성인 기능
 
-- **문의 폼 백엔드** — 미연결 (개발용 안내 표시 중)
 - **확정 로고** — 텍스트 워드마크 + 임시 심볼 사용 중
 - **다국어(영어) 버전** — 초기 버전은 한국어 중심
 - **공개 가능한 제품 사진** — 확보 시 교체 (가짜 렌더링은 만들지 않음)

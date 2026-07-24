@@ -130,9 +130,6 @@ export default function Pr1Page() {
           <ButtonLink href="/research" showArrow>
             LUNDA 연구 방향 보기
           </ButtonLink>
-          <ButtonLink href="/contact" variant="secondary">
-            문의하기
-          </ButtonLink>
         </div>
         </div>
       </section>

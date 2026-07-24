@@ -65,12 +65,9 @@ export function Header() {
             </ul>
           </nav>
 
-          <div className="hidden items-center gap-2 lg:flex">
-            <ButtonLink href={ctaLinks.research.href} variant="ghost">
+          <div className="hidden items-center lg:flex">
+            <ButtonLink href={ctaLinks.research.href} variant="primary">
               {ctaLinks.research.label}
-            </ButtonLink>
-            <ButtonLink href={ctaLinks.contact.href} variant="primary">
-              {ctaLinks.contact.label}
             </ButtonLink>
           </div>
 
@@ -122,10 +119,7 @@ export function Header() {
               ))}
             </ul>
             <div className="mt-4 flex flex-col gap-2 border-t border-white/50 pt-4">
-              <ButtonLink href={ctaLinks.contact.href} variant="primary">
-                {ctaLinks.contact.label}
-              </ButtonLink>
-              <ButtonLink href={ctaLinks.research.href} variant="secondary">
+              <ButtonLink href={ctaLinks.research.href} variant="primary">
                 {ctaLinks.research.label}
               </ButtonLink>
             </div>
