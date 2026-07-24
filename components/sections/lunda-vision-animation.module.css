@@ -1,0 +1,338 @@
+.section {
+  display: grid;
+  min-height: calc(100svh - 5.75rem);
+  place-items: center;
+  overflow: hidden;
+  padding: clamp(1.25rem, 4vw, 3rem);
+}
+
+.stage {
+  --vision-x: 50%;
+  --vision-y: 32%;
+  --vision-rotate-x: 0deg;
+  --vision-rotate-y: 0deg;
+  position: relative;
+  width: min(100%, 68rem);
+  isolation: isolate;
+  perspective: 1100px;
+}
+
+.ambient {
+  position: absolute;
+  z-index: -1;
+  display: block;
+  border-radius: 999px;
+  filter: blur(48px);
+  pointer-events: none;
+}
+
+.ambientA {
+  top: -8%;
+  left: 10%;
+  width: 42%;
+  aspect-ratio: 1;
+  background: rgb(122 208 217 / 0.28);
+}
+
+.ambientB {
+  right: 8%;
+  bottom: -10%;
+  width: 36%;
+  aspect-ratio: 1;
+  background: rgb(11 79 108 / 0.2);
+}
+
+.glass {
+  position: relative;
+  display: grid;
+  min-height: clamp(24rem, 64svh, 38rem);
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid rgb(255 255 255 / 0.72);
+  border-radius: clamp(2rem, 5vw, 3.5rem);
+  background:
+    radial-gradient(
+      circle at var(--vision-x) var(--vision-y),
+      rgb(255 255 255 / 0.72),
+      transparent 26%
+    ),
+    linear-gradient(145deg, rgb(255 255 255 / 0.48), rgb(255 255 255 / 0.2));
+  box-shadow:
+    0 32px 80px rgb(6 34 46 / 0.14),
+    inset 0 1px 0 rgb(255 255 255 / 0.92),
+    inset 0 -1px 0 rgb(11 79 108 / 0.08);
+  -webkit-backdrop-filter: blur(24px) saturate(150%);
+  backdrop-filter: blur(24px) saturate(150%);
+  transform: rotateX(var(--vision-rotate-x)) rotateY(var(--vision-rotate-y));
+  transform-style: preserve-3d;
+  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.glass::before {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    linear-gradient(135deg, rgb(255 255 255 / 0.68), transparent 24%),
+    linear-gradient(315deg, rgb(122 208 217 / 0.16), transparent 30%);
+  content: "";
+  pointer-events: none;
+}
+
+.glass::after {
+  position: absolute;
+  inset: 1px;
+  border: 1px solid rgb(255 255 255 / 0.24);
+  border-radius: inherit;
+  content: "";
+  pointer-events: none;
+}
+
+.sequence {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  width: 100%;
+  height: clamp(8rem, 20vw, 12rem);
+  place-items: center;
+  padding-inline: 1rem;
+}
+
+.latinWord,
+.koreanWord {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  color: var(--color-marina-950);
+  font-size: clamp(3.25rem, 12vw, 8.75rem);
+  font-weight: 750;
+  line-height: 0.9;
+  white-space: nowrap;
+  text-shadow: 0 10px 32px rgb(11 79 108 / 0.1);
+}
+
+.latinWord {
+  display: inline-flex;
+  align-items: baseline;
+  letter-spacing: 0.075em;
+  transform: translate(-50%, -50%);
+  animation: latin-dissolve 6.2s both;
+}
+
+.joiningE {
+  position: relative;
+  display: inline-block;
+  color: var(--color-aqua-600);
+  animation: e-arrive 6.2s both;
+}
+
+.joiningE::before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: -1;
+  width: 1.1em;
+  height: 1.1em;
+  border-radius: 999px;
+  background: rgb(122 208 217 / 0.32);
+  content: "";
+  filter: blur(16px);
+  transform: translate(-50%, -50%);
+}
+
+.lunda {
+  display: inline-block;
+  animation: lunda-shift 6.2s both;
+}
+
+.koreanWord {
+  letter-spacing: 0.08em;
+  transform: translate(-50%, -50%);
+  animation: korean-reveal 6.2s both;
+}
+
+.fusionRing {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: clamp(5rem, 13vw, 8.5rem);
+  aspect-ratio: 1;
+  border: 1px solid rgb(53 181 194 / 0.58);
+  border-radius: 999px;
+  box-shadow:
+    0 0 36px rgb(122 208 217 / 0.28),
+    inset 0 0 24px rgb(255 255 255 / 0.48);
+  transform: translate(-50%, -50%);
+  animation: fusion-wave 6.2s both;
+}
+
+.tagline {
+  position: absolute;
+  z-index: 1;
+  right: 1.5rem;
+  bottom: clamp(2.25rem, 8vw, 4.5rem);
+  left: 1.5rem;
+  margin: 0;
+  color: var(--color-marina-800);
+  font-size: clamp(1rem, 2.2vw, 1.35rem);
+  font-weight: 650;
+  line-height: 1.5;
+  text-align: center;
+  text-wrap: balance;
+  animation: tagline-reveal 6.2s both;
+}
+
+@keyframes e-arrive {
+  0%,
+  18% {
+    opacity: 0;
+    filter: blur(10px);
+    transform: translateX(-3.6em) scale(0.72);
+  }
+
+  38%,
+  50% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateX(0) scale(1);
+  }
+
+  62%,
+  100% {
+    opacity: 0;
+    filter: blur(12px);
+    transform: translateX(0) scale(1.03);
+  }
+}
+
+@keyframes lunda-shift {
+  0%,
+  18% {
+    transform: translateX(-0.37em);
+  }
+
+  38%,
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes latin-dissolve {
+  0%,
+  49% {
+    opacity: 1;
+    filter: blur(0);
+  }
+
+  62%,
+  100% {
+    opacity: 0;
+    filter: blur(14px);
+  }
+}
+
+@keyframes korean-reveal {
+  0%,
+  51% {
+    opacity: 0;
+    filter: blur(14px);
+    letter-spacing: 0.28em;
+    transform: translate(-50%, -50%) scale(0.88);
+  }
+
+  68%,
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    letter-spacing: 0.08em;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes fusion-wave {
+  0%,
+  32% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.28);
+  }
+
+  39% {
+    opacity: 0.8;
+  }
+
+  56%,
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(2.4);
+  }
+}
+
+@keyframes tagline-reveal {
+  0%,
+  66% {
+    opacity: 0;
+    filter: blur(6px);
+    transform: translateY(0.75rem);
+  }
+
+  82%,
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .glass {
+    background: rgb(248 250 251 / 0.98);
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .glass {
+    background: var(--color-paper);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glass {
+    transform: none;
+    transition: none;
+  }
+
+  .latinWord,
+  .fusionRing {
+    display: none;
+  }
+
+  .koreanWord,
+  .tagline {
+    opacity: 1;
+    filter: none;
+    transform: translate(-50%, -50%);
+    animation: none;
+  }
+
+  .tagline {
+    transform: none;
+  }
+}
+
+@media (max-width: 420px) {
+  .section {
+    padding-inline: 0.75rem;
+  }
+
+  .glass {
+    min-height: 26rem;
+    border-radius: 2rem;
+  }
+
+  .latinWord,
+  .koreanWord {
+    font-size: clamp(3rem, 17vw, 4.4rem);
+  }
+}
