@@ -18,16 +18,22 @@ export default function DevelopmentPage() {
   return (
     <>
       <PageHero
-        eyebrow="How We Work"
-        title={developmentSection.title}
-        description={developmentSection.description}
+        eyebrow="개발 원칙"
+        title={"문제부터.\n하나씩."}
+        description="가설보다 근거를 먼저 쌓습니다."
+        visualLabel="LUNDA 개발 기준"
+        visualItems={[
+          { word: "문제", detail: "기술보다 먼저" },
+          { word: "검증", detail: "한 번에 하나씩" },
+          { word: "근거", detail: "주장보다 먼저" },
+        ]}
       />
 
       {/* 공개 가능한 개발 원칙 */}
       <section className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20">
         <Reveal>
           <SectionHeading
-            eyebrow="Principles"
+            eyebrow="기준"
             title="제품보다 먼저 지키는 네 가지 기준"
             description="LUNDA의 내부 실험 세부사항 대신, 모든 프로젝트에 공통으로 적용하는 판단 기준을 공개합니다."
           />
@@ -48,10 +54,7 @@ export default function DevelopmentPage() {
                       {String(index + 1).padStart(2, "0")}
                     </span>
                   </div>
-                  <p className="mt-5 text-xs font-semibold tracking-widest text-marina-600 uppercase">
-                    {principle.key}
-                  </p>
-                  <h3 className="mt-2 text-lg font-bold text-marina-900">
+                  <h3 className="mt-5 text-lg font-bold text-marina-900">
                     {principle.title}
                   </h3>
                   <p className="mt-3 text-sm leading-relaxed text-ink-500">
@@ -69,7 +72,7 @@ export default function DevelopmentPage() {
         <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20">
           <Reveal>
             <SectionHeading
-              eyebrow="Portfolio"
+              eyebrow="프로젝트"
               title="현재 집중과 미래 연구를 구분합니다."
               description="PR1과 PR2를 동시에 완성된 제품처럼 보이지 않도록, 역할과 우선순위를 명확히 나눕니다."
               onDark
@@ -92,7 +95,7 @@ export default function DevelopmentPage() {
                             : undefined
                         }
                       >
-                        {project.badge}
+                        {project.name === "PR1" ? "현재 집중" : "미래 연구"}
                       </Badge>
                       <span className="text-sm font-semibold tracking-widest text-marina-100/55">
                         {project.name}
