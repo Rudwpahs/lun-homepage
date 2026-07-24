@@ -24,8 +24,7 @@ export const statusLabels: Record<ProjectStatus, string> = {
 export const brand = {
   name: "LUNDA",
   tagline: "화면에서 벗어나도, 연결은 계속됩니다.",
-  description:
-    "LUNDA는 스마트폰 화면에 대한 의존을 줄이고, 이동과 일상 속에서 더 자연스럽게 오디오를 이용할 수 있는 새로운 인터페이스를 연구합니다.",
+  description: "LUNDA는 화면 의존을 줄이는 오디오 경험을 연구합니다.",
   vision:
     "LUNDA는 사람을 화면에 더 오래 붙잡아 두는 기술이 아니라, 필요한 순간에 기술이 자연스럽게 뒤로 물러나는 경험을 연구합니다.",
   values: [
@@ -52,6 +51,26 @@ export const brand = {
     {
       key: "Practical innovation",
       description: "실험과 검증을 바탕으로 한 현실적인 혁신",
+    },
+  ],
+} as const;
+
+export const homeIntro = {
+  keywords: [
+    {
+      keyword: "분리",
+      hint: "화면과 청취",
+      statement: "화면과 청취를 나눕니다.",
+    },
+    {
+      keyword: "연결",
+      hint: "필요한 소리",
+      statement: "필요한 소리를 이어줍니다.",
+    },
+    {
+      keyword: "몰입",
+      hint: "움직임과 집중",
+      statement: "움직임과 집중을 지킵니다.",
     },
   ],
 } as const;
@@ -482,17 +501,4 @@ export const pr1Story = {
         "귀를 막지 않는 방식으로, 화면을 보지 않고 필요한 오디오를 듣습니다.",
     },
   ],
-} as const;
-
-export const aboutSection = {
-  title: "LUNDA에 대하여",
-  definition:
-    "LUNDA는 스마트폰 화면에 대한 의존을 줄이고, 이동과 일상 속에서 더 자연스럽게 오디오를 이용할 수 있는 새로운 오디오 인터페이스를 연구하는 기술 프로젝트 브랜드입니다.",
-  philosophy: [
-    "현대 사용자는 음악, 알림, 안내, 학습, 운동 기록 등 많은 정보를 스마트폰을 통해 이용합니다. 하지만 오디오를 듣는 순간에도 스마트폰을 계속 소지하거나 화면을 확인해야 하는 경우가 많습니다.",
-    "LUNDA는 기술을 더 오래 보게 만드는 것이 아니라, 필요한 순간에 기술이 자연스럽게 뒤로 물러나는 경험을 목표로 합니다.",
-    "그래서 LUNDA의 모든 프로젝트는 실제 하드웨어와 실험을 기반으로, 과장 없이 단계적으로 검증하며 진행됩니다.",
-  ],
-  currentState:
-    "LUNDA는 현재 제품을 판매하고 있지 않으며, PR1의 사용자 가치와 구현 가능성을 단계적으로 확인하고 있습니다.",
 } as const;
