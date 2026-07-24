@@ -19,17 +19,18 @@ export default function Pr1Page() {
   return (
     <>
       <PageHero
-        eyebrow="Project PR1"
-        title={pr1.headline}
-        description={pr1.description}
+        eyebrow="현재 프로젝트 · PR1"
+        title={"화면은 두고.\n소리만 잇고."}
+        description="PR1은 화면과 청취를 분리하는 LUNDA의 핵심 프로젝트입니다."
         meta={
-          <>
-            <Badge tone="primary">{pr1.badge}</Badge>
-            <span className="text-sm font-medium text-ink-500">
-              {pr1.status} · {pr1.stage}
-            </span>
-          </>
+          <Badge tone="primary">{pr1.badgeKo}</Badge>
         }
+        visualLabel="PR1 핵심 경험"
+        visualItems={[
+          { word: "두고", detail: "화면은 제자리에" },
+          { word: "잇고", detail: "공간을 따라 연결" },
+          { word: "듣고", detail: "필요한 소리만" },
+        ]}
       />
 
       {/* 스크롤 개념 스토리 — Separate → Connect → Listen */}
@@ -39,7 +40,7 @@ export default function Pr1Page() {
       <section className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20">
         <Reveal>
           <SectionHeading
-            eyebrow="Project Direction"
+            eyebrow="현재 목표"
             title="PR1이 만들고자 하는 경험"
             description={pr1.coreIdea}
           />
@@ -67,7 +68,7 @@ export default function Pr1Page() {
         <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20">
           <Reveal>
             <SectionHeading
-              eyebrow="Experience Flow"
+              eyebrow="경험 흐름"
               title="화면을 멀리 두고, 필요한 소리만 이어지는 흐름"
               description="내부 부품이나 구현 방식이 아니라 사용자가 경험하게 될 핵심 흐름을 공개용 개념도로 설명합니다."
               onDark
@@ -89,7 +90,7 @@ export default function Pr1Page() {
       <section className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20">
         <Reveal>
           <SectionHeading
-            eyebrow="Experience Criteria"
+            eyebrow="검증 기준"
             title="제품 경험을 판단하는 기준"
             description="완성된 성능을 주장하기 전에, 실제 사용에서 중요한 기준을 하나씩 확인합니다."
           />
