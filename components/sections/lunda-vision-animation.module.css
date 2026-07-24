@@ -14,10 +14,6 @@
 }
 
 .stage {
-  --vision-x: 50%;
-  --vision-y: 32%;
-  --vision-rotate-x: 0deg;
-  --vision-rotate-y: 0deg;
   --e-opacity: 0;
   --e-x: -3.8em;
   --e-scale: 0.72;
@@ -41,7 +37,6 @@
   position: relative;
   width: min(100%, 68rem);
   isolation: isolate;
-  perspective: 1100px;
 }
 
 .ambient {
@@ -58,7 +53,7 @@
   left: 10%;
   width: 42%;
   aspect-ratio: 1;
-  background: rgb(122 208 217 / 0.28);
+  background: rgb(122 208 217 / 0.2);
 }
 
 .ambientB {
@@ -66,7 +61,7 @@
   bottom: -10%;
   width: 36%;
   aspect-ratio: 1;
-  background: rgb(11 79 108 / 0.2);
+  background: rgb(11 79 108 / 0.14);
 }
 
 .glass {
@@ -78,11 +73,7 @@
   border: 1px solid rgb(255 255 255 / 0.72);
   border-radius: clamp(2rem, 5vw, 3.5rem);
   background:
-    radial-gradient(
-      circle at var(--vision-x) var(--vision-y),
-      rgb(255 255 255 / 0.72),
-      transparent 26%
-    ),
+    radial-gradient(circle at 50% 32%, rgb(255 255 255 / 0.68), transparent 28%),
     linear-gradient(145deg, rgb(255 255 255 / 0.48), rgb(255 255 255 / 0.2));
   box-shadow:
     0 32px 80px rgb(6 34 46 / 0.14),
@@ -90,9 +81,6 @@
     inset 0 -1px 0 rgb(11 79 108 / 0.08);
   -webkit-backdrop-filter: blur(24px) saturate(150%);
   backdrop-filter: blur(24px) saturate(150%);
-  transform: rotateX(var(--vision-rotate-x)) rotateY(var(--vision-rotate-y));
-  transform-style: preserve-3d;
-  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .glass::before {
@@ -113,6 +101,21 @@
   border-radius: inherit;
   content: "";
   pointer-events: none;
+}
+
+.liquidFlow {
+  position: absolute;
+  top: -44%;
+  left: 14%;
+  z-index: 0;
+  display: block;
+  width: 70%;
+  aspect-ratio: 1;
+  border-radius: 44% 56% 62% 38% / 56% 42% 58% 44%;
+  background: rgb(122 208 217 / 0.18);
+  filter: blur(36px);
+  pointer-events: none;
+  animation: hero-liquid-flow 13s ease-in-out infinite alternate;
 }
 
 .sequence {
@@ -258,6 +261,17 @@
   opacity: var(--end-cue-opacity);
 }
 
+@keyframes hero-liquid-flow {
+  from {
+    border-radius: 44% 56% 62% 38% / 56% 42% 58% 44%;
+    transform: translate3d(-8%, -5%, 0) rotate(-6deg) scale(0.96);
+  }
+  to {
+    border-radius: 62% 38% 46% 54% / 42% 60% 40% 58%;
+    transform: translate3d(20%, 16%, 0) rotate(10deg) scale(1.07);
+  }
+}
+
 @supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
   .glass {
     background: rgb(248 250 251 / 0.98);
@@ -283,11 +297,6 @@
     min-height: 32rem;
   }
 
-  .glass {
-    transform: none;
-    transition: none;
-  }
-
   .joiningE,
   .fusionRing,
   .koreanWord,
@@ -304,6 +313,10 @@
 
   .lunda {
     transform: none;
+  }
+
+  .liquidFlow {
+    animation: none;
   }
 }
 
