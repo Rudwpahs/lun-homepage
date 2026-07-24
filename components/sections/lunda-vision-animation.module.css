@@ -1,6 +1,6 @@
 .story {
   position: relative;
-  height: 250svh;
+  min-height: calc(100svh - 4rem);
 }
 
 .sticky {
@@ -308,10 +308,6 @@
 }
 
 @media (max-width: 420px) {
-  .story {
-    height: 235svh;
-  }
-
   .sticky {
     padding-inline: 0.75rem;
   }
