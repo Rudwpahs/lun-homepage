@@ -308,8 +308,7 @@ export function LundaVisionAnimation() {
       aria-labelledby="lunda-vision-title"
     >
       <h1 id="lunda-vision-title" className="sr-only">
-        LUNDA. 첫 스크롤을 시작하면 E가 결합해 이룬다로 변한 뒤 다시
-        LUNDA로 돌아옵니다. 다음 스크롤에서 회사 소개가 이어집니다.{" "}
+        LUNDA. 첫 스크롤에서 이룬다로 변한 뒤 다시 LUNDA로 돌아옵니다.{" "}
         {brand.tagline}
       </h1>
 
@@ -339,10 +338,10 @@ export function LundaVisionAnimation() {
             <p className={styles.tagline}>{brand.tagline}</p>
 
             <span className={`${styles.cue} ${styles.startCue}`} aria-hidden>
-              SCROLL TO START
+              스크롤하여 시작
             </span>
             <span className={`${styles.cue} ${styles.endCue}`} aria-hidden>
-              ABOUT LUNDA
+              아래로 계속
             </span>
           </div>
         </div>
