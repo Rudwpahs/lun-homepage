@@ -36,7 +36,3 @@ export const navItems: NavItem[] = [
   { label: "PR1", href: "/projects/pr1" },
   { label: "PR2", href: "/projects/pr2" },
 ];
-
-export const ctaLinks = {
-  research: { label: "연구 방향", href: "/research" },
-} as const;
