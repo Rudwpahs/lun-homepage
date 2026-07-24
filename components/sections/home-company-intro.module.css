@@ -55,10 +55,6 @@
 }
 
 .stage {
-  --stage-x: 50%;
-  --stage-y: 30%;
-  --stage-rotate-x: 0deg;
-  --stage-rotate-y: 0deg;
   position: relative;
   display: grid;
   width: min(100%, 78rem);
@@ -69,11 +65,7 @@
   border: 1px solid rgb(255 255 255 / 0.16);
   border-radius: clamp(2rem, 4vw, 3.5rem);
   background:
-    radial-gradient(
-      circle at var(--stage-x) var(--stage-y),
-      rgb(122 208 217 / 0.18),
-      transparent 28%
-    ),
+    radial-gradient(circle at 62% 34%, rgb(122 208 217 / 0.14), transparent 30%),
     linear-gradient(145deg, rgb(255 255 255 / 0.1), rgb(255 255 255 / 0.025));
   box-shadow:
     0 36px 100px rgb(0 0 0 / 0.32),
@@ -81,10 +73,6 @@
   padding: clamp(1.5rem, 4vw, 4rem);
   -webkit-backdrop-filter: blur(24px) saturate(135%);
   backdrop-filter: blur(24px) saturate(135%);
-  transform: perspective(1200px) rotateX(var(--stage-rotate-x))
-    rotateY(var(--stage-rotate-y));
-  transform-style: preserve-3d;
-  transition: transform 240ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .stage::before {
@@ -101,8 +89,8 @@
 
 .stage::after {
   position: absolute;
-  top: var(--stage-y);
-  left: var(--stage-x);
+  top: 34%;
+  left: 62%;
   z-index: -1;
   width: clamp(9rem, 18vw, 15rem);
   aspect-ratio: 1;
@@ -113,13 +101,21 @@
   content: "";
   pointer-events: none;
   transform: translate(-50%, -50%);
-  transition:
-    top 180ms ease-out,
-    left 180ms ease-out;
 }
 
-.copy {
-  transform: translateZ(18px);
+.liquidFlow {
+  position: absolute;
+  top: -34%;
+  left: 28%;
+  z-index: -1;
+  display: block;
+  width: 62%;
+  aspect-ratio: 1;
+  border-radius: 46% 54% 62% 38% / 58% 42% 58% 42%;
+  background: rgb(53 181 194 / 0.14);
+  filter: blur(34px);
+  pointer-events: none;
+  animation: intro-liquid-flow 15s ease-in-out infinite alternate;
 }
 
 .brand {
@@ -151,7 +147,6 @@
 
 .experience {
   min-width: 0;
-  transform: translateZ(28px);
 }
 
 .instruction {
@@ -209,16 +204,10 @@
   );
   content: "";
   transform: translateX(-130%);
-  animation: lens-sheen 4.8s ease-in-out infinite;
+  animation: lens-sheen 8s ease-in-out infinite;
 }
 
 .keywordButton {
-  --card-x: 50%;
-  --card-y: 30%;
-  --card-rotate-x: 0deg;
-  --card-rotate-y: 0deg;
-  --magnet-x: 0px;
-  --magnet-y: 0px;
   position: relative;
   display: flex;
   min-height: clamp(12rem, 18vw, 15rem);
@@ -232,12 +221,7 @@
   background: transparent;
   padding: 1.25rem 0.75rem;
   color: rgb(255 255 255 / 0.48);
-  transform: perspective(900px) rotateX(var(--card-rotate-x))
-    rotateY(var(--card-rotate-y));
-  transform-style: preserve-3d;
-  transition:
-    color 240ms ease,
-    transform 180ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition: color 240ms ease;
 }
 
 .keywordButton:first-of-type {
@@ -248,7 +232,7 @@
   position: absolute;
   inset: 0;
   background: radial-gradient(
-    11rem 11rem at var(--card-x) var(--card-y),
+    11rem 11rem at 50% 35%,
     rgb(122 208 217 / 0.18),
     transparent 72%
   );
@@ -270,10 +254,7 @@
   font-weight: 780;
   letter-spacing: -0.07em;
   line-height: 1;
-  transform: translate3d(var(--magnet-x), var(--magnet-y), 28px);
-  transition:
-    color 240ms ease,
-    transform 180ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition: color 240ms ease;
 }
 
 .keywordHint {
@@ -351,6 +332,17 @@
   86%,
   100% {
     transform: translateX(130%);
+  }
+}
+
+@keyframes intro-liquid-flow {
+  from {
+    border-radius: 46% 54% 62% 38% / 58% 42% 58% 42%;
+    transform: translate3d(-8%, -5%, 0) rotate(-6deg) scale(0.96);
+  }
+  to {
+    border-radius: 62% 38% 44% 56% / 42% 60% 40% 58%;
+    transform: translate3d(18%, 14%, 0) rotate(10deg) scale(1.08);
   }
 }
 
@@ -470,7 +462,8 @@
     transition: none;
   }
 
-  .activeLens::after {
+  .activeLens::after,
+  .liquidFlow {
     animation: none;
   }
 }
