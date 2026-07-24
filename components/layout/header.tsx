@@ -5,9 +5,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { ctaLinks, navItems } from "@/lib/site-config";
+import { navItems } from "@/lib/site-config";
 import { Logo } from "@/components/layout/logo";
-import { ButtonLink } from "@/components/ui/button-link";
 
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -65,12 +64,6 @@ export function Header() {
             </ul>
           </nav>
 
-          <div className="hidden items-center lg:flex">
-            <ButtonLink href={ctaLinks.research.href} variant="primary">
-              {ctaLinks.research.label}
-            </ButtonLink>
-          </div>
-
           {/* 모바일 메뉴 버튼 (44px 터치 타깃) */}
           <button
             type="button"
@@ -118,11 +111,6 @@ export function Header() {
                 </li>
               ))}
             </ul>
-            <div className="mt-4 flex flex-col gap-2 border-t border-white/50 pt-4">
-              <ButtonLink href={ctaLinks.research.href} variant="primary">
-                {ctaLinks.research.label}
-              </ButtonLink>
-            </div>
           </nav>
         </div>
       </div>
