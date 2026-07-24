@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { homeIntro } from "@/content/lun-content";
@@ -8,8 +8,45 @@ import styles from "./home-company-intro.module.css";
 
 export function HomeCompanyIntro() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isInView, setIsInView] = useState(false);
+  const [hasInteracted, setHasInteracted] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
   const activeItem = homeIntro.keywords[activeIndex];
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsInView(entry.isIntersecting),
+      { threshold: 0.45 },
+    );
+
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (
+      !isInView ||
+      hasInteracted ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      return;
+    }
+
+    const interval = window.setInterval(() => {
+      setActiveIndex((current) => (current + 1) % homeIntro.keywords.length);
+    }, 1800);
+
+    return () => window.clearInterval(interval);
+  }, [hasInteracted, isInView]);
+
+  const activateKeyword = (index: number) => {
+    setHasInteracted(true);
+    setActiveIndex(index);
+  };
 
   const handleStagePointerMove = (
     event: React.PointerEvent<HTMLDivElement>,
@@ -69,6 +106,7 @@ export function HomeCompanyIntro() {
 
   return (
     <section
+      ref={sectionRef}
       id="about-lunda"
       aria-labelledby="about-lunda-title"
       className={styles.section}
@@ -97,7 +135,7 @@ export function HomeCompanyIntro() {
         </div>
 
         <div className={styles.experience}>
-          <p className={styles.instruction}>직접 선택해 보세요</p>
+          <p className={styles.instruction}>선택해 보세요</p>
 
           <div
             className={styles.keywords}
@@ -120,9 +158,9 @@ export function HomeCompanyIntro() {
                   data-active={isActive}
                   aria-pressed={isActive}
                   aria-controls="lunda-keyword-detail"
-                  onPointerEnter={() => setActiveIndex(index)}
-                  onFocus={() => setActiveIndex(index)}
-                  onClick={() => setActiveIndex(index)}
+                  onPointerEnter={() => activateKeyword(index)}
+                  onFocus={() => activateKeyword(index)}
+                  onClick={() => activateKeyword(index)}
                   onPointerMove={handleKeywordPointerMove}
                   onPointerLeave={resetKeyword}
                 >
