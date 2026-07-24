@@ -1,6 +1,6 @@
-# LUN Design System
+# LUNDA Design System
 
-LUN 공식 홈페이지의 디자인 시스템 문서입니다.
+LUNDA 공식 홈페이지의 디자인 시스템 문서입니다.
 UI UX Pro Max 스킬의 생성 결과(`design-system/lun/MASTER.md`)를 바탕으로,
 브랜드 브리프(Marina Blue, Pretendard, 절제된 모션)에 맞게 보정한 **최종 확정본**입니다.
 두 문서가 충돌하면 이 문서가 우선합니다.
@@ -10,8 +10,10 @@ UI UX Pro Max 스킬의 생성 결과(`design-system/lun/MASTER.md`)를 바탕�
 ## 1. 디자인 철학
 
 - **Calm technology** — 기술이 앞에 나서지 않고, 필요한 순간에 뒤로 물러나는 브랜드 성격을 그대로 반영합니다. 화면은 조용하고, 정보는 명확해야 합니다.
-- **Swiss Modernism 2.0 + Minimalism** — 수학적 간격, 명확한 위계, 높은 대비, 최소한의 장식. 12컬럼 감각의 그리드와 여백으로 구조를 만듭니다.
-- **연구 기록의 신뢰감** — 투자 유치형 과장 대신, 상태 배지·타임라인·정직한 고지로 "검증 중"이라는 사실을 디자인 언어로 표현합니다.
+- **Minimalism first** — Glassmorphism이나 Liquid Glass보다 정보 위계와 여백을 우선합니다. 효과를 제거해도 구조가 성립해야 합니다.
+- **Swiss Modernism 2.0** — 수학적 간격, 명확한 위계, 높은 대비, 최소한의 장식. 12컬럼 감각의 그리드와 여백으로 구조를 만듭니다.
+- **Glassmorphism + Liquid Glass** — 유리 재질은 브랜드의 맑고 유동적인 인상을 보조합니다. Glassmorphism은 히어로 비주얼에, Liquid Glass는 헤더·버튼 등 떠 있는 조작층에 집중합니다.
+- **연구의 신뢰감** — 투자 유치형 과장 대신 확인된 사실·현재 가설·미래 계획을 구분합니다.
 - **콘텐츠와 UI 분리** — 모든 문구는 `content/lun-content.ts`에서 관리하고, 컴포넌트는 표현만 담당합니다.
 
 > 참고: UI UX Pro Max가 1순위로 추천한 Neumorphism 스타일은
@@ -90,8 +92,8 @@ UI UX Pro Max 스킬의 생성 결과(`design-system/lun/MASTER.md`)를 바탕�
 
 | 토큰 | 값 | 용도 |
 |---|---|---|
-| `--radius-btn` | 8px | 버튼, 입력 필드 |
-| `--radius-card` | 12px | 카드, 패널 |
+| `--radius-btn` | 999px | Liquid Glass 버튼 |
+| `--radius-card` | 20px | 카드, 패널 |
 | `rounded-full` | — | 배지, 칩, 아이콘 원 |
 
 ## 6. 그림자
@@ -102,23 +104,37 @@ Swiss 방향에 맞춰 보더 중심 + 그림자는 최소화합니다.
 |---|---|---|
 | `--shadow-card` | `0 1px 2px rgb(11 45 58 / 0.05)` | 카드 기본 |
 | `--shadow-card-hover` | `0 4px 16px rgb(11 45 58 / 0.10)` | 카드 hover |
+| `--shadow-glass` | 다층 외부 그림자 + 흰색 inset highlight | 스크롤된 Liquid Glass 헤더 |
 
 ## 7. 버튼 (`components/ui/button-link.tsx`)
 
-- 공통: `min-h-11`(44px 터치 타깃), semibold 14px, `transition-colors 200ms`, `cursor-pointer`.
-- `primary`: marina-700 배경 + 흰 텍스트 (8.94:1). hover marina-800, active marina-900.
-- `secondary`: 흰 배경 + line-300 보더 + marina-800 텍스트. hover 시 보더 marina-500.
-- `ghost`: 텍스트만, hover 시 marina-50 배경.
-- `onDark`: 다크 섹션 전용 — `white/10` 배경 + `white/25` 보더.
+- 공통: `min-h-11`(44px 터치 타깃), pill 형태, 180ms 전환, 눌림 시 `scale(0.985)`.
+- `primary`: marina tint를 사용하는 불투명도 높은 유리 버튼. 흰 텍스트 대비를 유지합니다.
+- `secondary`: 흰색 반투명 표면 + line 보더 + marina 텍스트.
+- `ghost`: 기본 상태에는 굴절을 적용하지 않고 hover에서만 얕은 표면을 표시합니다.
+- `onDark`: 다크 섹션 전용 — `white/12` 배경 + `white/25` 보더.
+- 헤더 자체가 유리층이므로 헤더 안 버튼에는 중첩 `backdrop-filter`를 적용하지 않습니다.
 - 화살표는 `showArrow`로 옵트인.
 
 ## 8. 카드
 
 - 기본: `bg-surface + border line-100 + radius-card + shadow-card`.
 - hover: `shadow-card-hover` (모션 없이 그림자만).
+- 본문 카드는 기본적으로 불투명 표면을 유지합니다. 모든 카드를 유리로 만드는 패턴은 금지합니다.
 - 분할 그리드 카드: `grid gap-px bg-line-100` 기법으로 1px 분할선 (Problem, 검증 항목).
 - 다크 패널: `bg-marina-900 + border-white/10 + bg-white/5` (PR1 다이어그램).
-- 준비 중 카드: `border-dashed line-300` + "준비 중" 배지 — 빈 상태를 정직하게 표시.
+- 회사 구조도: Problem → LUNDA Approach → PR1(Current Focus) → PR2(Future Research)
+  순서로 연결합니다. 공개용 구조도에는 내부 prestudy의 구현·검증 데이터를
+  포함하지 않습니다.
+
+### Liquid Glass 적용 범위
+
+- `liquid-nav`: 스크롤 전에는 가볍게, 콘텐츠가 아래로 지나가면 불투명도·그림자를 높여 분리합니다.
+- `liquid-control`: hover·press에 빛과 깊이가 반응하는 버튼입니다.
+- `page-hero-visual`: 서브페이지마다 세 개의 키워드를 선택하는 공통 유리 패널입니다.
+- 홈 비전·연구 지도: 유리 안쪽의 두 굴절광 레이어가 느리게 형태를 바꾸며 흐릅니다.
+- `prefers-reduced-transparency`, `prefers-reduced-motion`, `backdrop-filter` 미지원 환경에서 불투명 표면으로 폴백합니다.
+- Apple 원칙에 따라 본문 콘텐츠층과 유리 조작층을 구분하고 glass-on-glass를 피합니다.
 
 ## 9. 배지 (`components/ui/badge.tsx`)
 
@@ -135,13 +151,20 @@ Swiss 방향에 맞춰 보더 중심 + 그림자는 최소화합니다.
 
 허용 (모두 `prefers-reduced-motion: reduce`에서 자동 비활성 — `globals.css`):
 
-- `Reveal` — IntersectionObserver 기반 섹션 등장 (500ms, 14px 상승, 1회만).
+- `Reveal` — IntersectionObserver 기반 섹션 등장 (400ms, 10px 상승, 1회만).
 - `.signal-line` — 다이어그램 연결선의 신호 흐름 (dash offset, 1.6s).
 - `.signal-pulse` — 히어로 동심 호의 은은한 펄스 (3.2s).
-- 버튼·카드 hover 전환 150~300ms.
+- 리퀴드 굴절광 — 화면당 핵심 유리 패널 1곳에서만 느리게 흐름.
+- 키워드 선택 — hover·focus·tap으로 같은 상태 변화를 제공.
+- 버튼·헤더 hover/press 전환 180~220ms.
 
-금지: 패럴랙스, 스크롤 하이재킹, 자동재생 비디오, 커서 추적, 텍스트 애니메이션, 로딩 인트로.
+금지: 패럴랙스, 반복적인 스크롤 고정, 자동재생 비디오, 전역 커서 추적, 긴 텍스트 애니메이션.
 (21st의 Process Timeline 컴포넌트가 사용하는 스크롤 고정 가로 이동은 이 원칙에 따라 정적 세로 타임라인으로 재설계했습니다.)
+
+**승인된 예외 — 홈 브랜드 시퀀스** (`components/sections/lunda-vision-animation.tsx`):
+첫 아래 방향 스크롤은 4.2초의 `LUNDA → ELUNDA → 이룬다 → LUNDA` 시퀀스를
+한 번만 시작합니다. 진행률을 스크롤에 연결하지 않으며, 재생이 끝난 다음 입력부터
+일반 스크롤로 돌아갑니다. 모션 감소 환경에서는 즉시 정적 LUNDA로 대체합니다.
 
 **승인된 예외 — PR1 스크롤 스토리** (`components/sections/pr1-story.tsx`, 오너 요청으로 추가):
 PR1 상세 페이지 상단의 캔버스 프레임 스크럽 섹션 1곳에 한해 스크롤 연동
@@ -164,7 +187,10 @@ PR1 상세 페이지 상단의 캔버스 프레임 스크럽 섹션 1곳에 한�
 
 **컴포넌트**
 - `AuroraBackground` — 레이아웃에 1회 마운트되는 전역 배경.
-- `SpotlightCard` — 인터랙티브 카드 래퍼 (approach·research·about·pr2·pr1 다이어그램 패널).
+- `SpotlightCard` — 개발 원칙과 프로젝트 카드의 포인터 하이라이트.
+- `PageHeroVisual` — 연구·PR1·PR2·개발 페이지의 공통 키워드 선택 패널.
+- `ResearchMap` — `분리·공간·개방·책임`을 선택하는 연구 구조도.
+- `HomeVision` — 회사 비전과 `PR1 → PR2`의 우선순위를 보여주는 시각 시스템.
 - 헤더 — 최상단 반투명 → 스크롤 시 프로스티드 글래스 + 하단 하어라인 (`scrolled` 상태).
 - 버튼 — primary hover 글로우, secondary/onDark 글래스 hover.
 
@@ -175,7 +201,6 @@ PR1 상세 페이지 상단의 캔버스 프레임 스크럽 섹션 1곳에 한�
 - `--glass-bg` 불투명도(0.62/0.82)는 **낮추지 말 것** — 카드 위 본문 대비의 하한을 지탱함.
 - 본문 텍스트를 가공되지 않은 오로라 위에 직접 올리지 말 것 (글래스/불투명 표면을 경유).
 - 모든 글래스·오로라·스포트라이트 모션은 `prefers-reduced-motion`에서 정지(CSS + SpotlightCard JS 이중 가드).
-- 문의 폼 입력 필드는 가독성을 위해 불투명 유지(글래스 미적용).
 
 ## 12. 반응형 기준
 
@@ -183,7 +208,7 @@ PR1 상세 페이지 상단의 캔버스 프레임 스크럽 섹션 1곳에 한�
 |---|---|
 | 375px | 단일 컬럼, 다이어그램 세로 전환, 모바일 메뉴, 오버플로 없음 |
 | 768px (`md`) | 다이어그램 가로 전환, 2컬럼 그리드 |
-| 1024px (`lg`) | 데스크톱 내비게이션 + CTA, 3~4컬럼 |
+| 1024px (`lg`) | 중복 CTA 없는 데스크톱 내비게이션, 3~4컬럼 |
 | 1440px | `max-w-6xl` 컨테이너로 중앙 정렬 유지 |
 
 - 터치 타깃 최소 44px (`min-h-11`, `size-11`).
@@ -194,18 +219,19 @@ PR1 상세 페이지 상단의 캔버스 프레임 스크럽 섹션 1곳에 한�
 - 시맨틱 HTML: `header/nav/main/footer/section/article`, `ol` 타임라인, `dl` 상태 설명.
 - 페이지당 `h1` 1개, 제목 레벨 건너뛰기 없음 (자동 검증 완료).
 - 키보드: 스킵 링크("본문 바로가기"), `:focus-visible` 2px marina-600 아웃라인.
-- `aria-label`(아이콘 버튼·다이어그램), `aria-expanded`/`aria-controls`(모바일 메뉴), `aria-current="page"`(활성 메뉴), `aria-live="polite"`(폼 결과), `role="note"`(고지).
-- 폼: 모든 입력에 `<label for>` 연결, `autocomplete` 지정.
+- `aria-label`(아이콘 버튼·다이어그램), `aria-expanded`/`aria-controls`(모바일 메뉴), `aria-current="page"`(활성 메뉴), `role="note"`(고지).
 - 색상 단독 정보 전달 금지 — 상태는 항상 아이콘+텍스트 병행.
 - 모든 실사용 색 조합 WCAG AA 이상 (2절 표 참고).
 - `prefers-reduced-motion` 전면 지원.
 
 ## 14. 사용 금지 패턴
 
-- AI 보라·분홍 그라데이션, 네온, 사이버펑크, 게임 UI, 과도한 Glassmorphism
+- AI 보라·분홍 그라데이션, 네온, 사이버펑크, 게임 UI, 본문 전체를 덮는 과도한 Glassmorphism
+- glass-on-glass 중첩, 저대비 투명 본문, 장식만을 위한 과도한 굴절
 - 의미 없는 3D 오브젝트, 가짜 제품 목업·렌더링
 - 과장 숫자, 가짜 후기, 가짜 파트너 로고, 존재하지 않는 특허·인증 표기
 - "세계 최초", "상용화 완료", "판매 중" 등 검증되지 않은 주장
 - 밝은 배경 위 `aqua-500` 텍스트 (대비 미달)
 - PR1과 PR2를 동일한 개발 단계처럼 보이게 하는 배치
+- prestudy의 보드·패킷·프로토콜·테스트 수치를 회사 소개 콘텐츠로 사용하는 것
 - 이모지 아이콘, placeholder만으로 라벨을 대체하는 폼

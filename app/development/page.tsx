@@ -1,108 +1,142 @@
 import type { Metadata } from "next";
-import { NotebookPen } from "lucide-react";
-import {
-  pr1Roadmap,
-  pr2Roadmap,
-  statusLabels,
-  type ProjectStatus,
-} from "@/content/lun-content";
+import { Info } from "lucide-react";
+import { developmentSection } from "@/content/lun-content";
 import { PageHero } from "@/components/layout/page-hero";
 import { SectionHeading } from "@/components/ui/section-heading";
-import { StatusBadge } from "@/components/ui/badge";
-import { RoadmapTimeline } from "@/components/sections/roadmap-timeline";
+import { Badge } from "@/components/ui/badge";
+import { ButtonLink } from "@/components/ui/button-link";
+import { ContentIcon } from "@/components/ui/icon";
 import { Reveal } from "@/components/ui/reveal";
+import { SpotlightCard } from "@/components/ui/spotlight-card";
 
 export const metadata: Metadata = {
-  title: "Development — 개발 과정",
-  description:
-    "LUN 프로젝트의 단계별 개발 로드맵과 진행 상황을 공개합니다. PR1은 현재 핵심 개발 프로젝트, PR2는 향후 연구 프로젝트입니다.",
-};
-
-const statusOrder: ProjectStatus[] = [
-  "Completed",
-  "In Progress",
-  "Planned",
-  "Future",
-];
-
-const statusDescriptions: Record<ProjectStatus, string> = {
-  Completed: "이미 완료한 단계",
-  "In Progress": "현재 진행 중인 단계",
-  Planned: "가까운 다음 단계",
-  Future: "PR1 검증 이후 진행할 단계",
+  title: "Development — LUNDA의 개발 원칙",
+  description: developmentSection.description,
 };
 
 export default function DevelopmentPage() {
   return (
     <>
       <PageHero
-        eyebrow="Development"
-        title="단계별 검증으로 진행하는 개발 과정"
-        description="LUN은 과장된 목표 대신, 확인 가능한 단계를 하나씩 통과하는 방식으로 개발을 진행합니다. 각 단계의 상태를 그대로 공개합니다."
+        eyebrow="개발 원칙"
+        title={"문제부터.\n하나씩."}
+        description="가설보다 근거를 먼저 쌓습니다."
+        visualLabel="LUNDA 개발 기준"
+        visualItems={[
+          { word: "문제", detail: "기술보다 먼저" },
+          { word: "검증", detail: "한 번에 하나씩" },
+          { word: "근거", detail: "주장보다 먼저" },
+        ]}
       />
 
-      {/* 상태 라벨 안내 */}
-      <section className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
-        <h2 className="sr-only">상태 라벨 안내</h2>
-        <dl className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {statusOrder.map((status) => (
-            <div
-              key={status}
-              className="glass rounded-(--radius-card) p-4"
-            >
-              <dt>
-                <StatusBadge status={status} />
-              </dt>
-              <dd className="mt-2 text-sm text-ink-500">
-                {statusDescriptions[status]}
-                <span className="sr-only">({statusLabels[status]})</span>
-              </dd>
-            </div>
-          ))}
-        </dl>
-      </section>
-
-      {/* PR1 로드맵 */}
-      <section className="mx-auto max-w-4xl px-4 py-10 sm:px-6 sm:py-14">
+      {/* 공개 가능한 개발 원칙 */}
+      <section className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20">
         <Reveal>
           <SectionHeading
-            eyebrow="PR1 — Current Focus"
-            title="PR1 개발 로드맵"
-            description="현재 핵심 개발 프로젝트인 PR1의 8단계 로드맵입니다."
+            eyebrow="기준"
+            title="제품보다 먼저 지키는 네 가지 기준"
+            description="LUNDA의 내부 실험 세부사항 대신, 모든 프로젝트에 공통으로 적용하는 판단 기준을 공개합니다."
           />
         </Reveal>
-        <RoadmapTimeline steps={pr1Roadmap} className="mt-10" />
-      </section>
-
-      {/* PR2 로드맵 — 작은 비중 */}
-      <section className="border-t border-line-100/60">
-        <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6 sm:py-14">
-          <Reveal>
-            <SectionHeading
-              eyebrow="PR2 — Future Research"
-              title="PR2 연구 로드맵"
-              description="PR2는 미래 연구 프로젝트로, 대부분의 단계가 PR1 검증 이후로 계획되어 있습니다."
-            />
-          </Reveal>
-          <RoadmapTimeline steps={pr2Roadmap} className="mt-10" />
+        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {developmentSection.principles.map((principle, index) => (
+            <Reveal
+              key={principle.key}
+              delay={Math.min(index * 70, 210)}
+            >
+              <article className="h-full">
+                <SpotlightCard className="glass-strong h-full rounded-(--radius-card) p-6">
+                  <div className="flex items-center justify-between gap-4">
+                    <span className="flex size-11 items-center justify-center rounded-full bg-marina-900 text-white">
+                      <ContentIcon name={principle.icon} className="size-5" />
+                    </span>
+                    <span className="text-xs font-semibold tracking-widest text-line-300">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                  </div>
+                  <h3 className="mt-5 text-lg font-bold text-marina-900">
+                    {principle.title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-relaxed text-ink-500">
+                    {principle.description}
+                  </p>
+                </SpotlightCard>
+              </article>
+            </Reveal>
+          ))}
         </div>
       </section>
 
-      {/* 개발 일지 준비 중 */}
+      {/* 프로젝트 포트폴리오의 현재와 미래 */}
+      <section className="bg-marina-900 text-white">
+        <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20">
+          <Reveal>
+            <SectionHeading
+              eyebrow="프로젝트"
+              title="현재 집중과 미래 연구를 구분합니다."
+              description="PR1과 PR2를 동시에 완성된 제품처럼 보이지 않도록, 역할과 우선순위를 명확히 나눕니다."
+              onDark
+            />
+          </Reveal>
+          <div className="mt-10 grid gap-5 md:grid-cols-2">
+            {developmentSection.portfolio.map((project, index) => (
+              <Reveal key={project.name} delay={index * 100}>
+                <article className="h-full">
+                  <SpotlightCard
+                    dark
+                    className="glass-dark flex h-full flex-col rounded-(--radius-card) p-7 sm:p-8"
+                  >
+                    <div className="flex flex-wrap items-center justify-between gap-3">
+                      <Badge
+                        tone={project.tone}
+                        className={
+                          project.tone === "primary"
+                            ? "bg-aqua-500/20 text-aqua-300"
+                            : undefined
+                        }
+                      >
+                        {project.name === "PR1" ? "현재 집중" : "미래 연구"}
+                      </Badge>
+                      <span className="text-sm font-semibold tracking-widest text-marina-100/55">
+                        {project.name}
+                      </span>
+                    </div>
+                    <h3 className="mt-6 text-xl font-bold tracking-tight text-white">
+                      {project.title}
+                    </h3>
+                    <p className="mt-3 flex-1 text-sm leading-relaxed text-marina-100/80 sm:text-base">
+                      {project.description}
+                    </p>
+                    <div className="mt-7">
+                      <ButtonLink
+                        href={project.href}
+                        variant="onDark"
+                        showArrow
+                      >
+                        {project.name} 살펴보기
+                      </ButtonLink>
+                    </div>
+                  </SpotlightCard>
+                </article>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 공개 원칙 고지 */}
       <section className="mx-auto max-w-4xl px-4 py-14 sm:px-6 sm:py-16">
-        <div className="glass rounded-(--radius-card) border-dashed border-line-300 p-8 text-center">
-          <NotebookPen
-            className="mx-auto size-8 text-marina-600"
-            strokeWidth={1.5}
-            aria-hidden
-          />
-          <h2 className="mt-4 text-lg font-bold text-marina-900">
-            개발 일지 — 준비 중
-          </h2>
-          <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-ink-500">
-            실험과 검증이 진행되는 대로 개발 일지를 이곳에 공개할 예정입니다.
-            아직 공개된 게시물이 없습니다.
-          </p>
+        <div
+          role="note"
+          className="glass flex items-start gap-3 rounded-(--radius-card) border-marina-200 p-5 text-sm leading-relaxed text-marina-800"
+        >
+          <Info className="mt-0.5 size-4 shrink-0" aria-hidden />
+          <p>{developmentSection.disclosure}</p>
+        </div>
+        <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+          <ButtonLink href="/research" showArrow>
+            연구 방향 보기
+          </ButtonLink>
         </div>
       </section>
     </>

@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
 import { Info } from "lucide-react";
-import { pr1, pr1Roadmap } from "@/content/lun-content";
+import { pr1 } from "@/content/lun-content";
 import { PageHero } from "@/components/layout/page-hero";
 import { Badge } from "@/components/ui/badge";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { SignalDiagram } from "@/components/sections/signal-diagram";
 import { Pr1Story } from "@/components/sections/pr1-story";
-import { RoadmapTimeline } from "@/components/sections/roadmap-timeline";
 import { ContentIcon } from "@/components/ui/icon";
 import { ButtonLink } from "@/components/ui/button-link";
 import { Reveal } from "@/components/ui/reveal";
@@ -20,17 +19,18 @@ export default function Pr1Page() {
   return (
     <>
       <PageHero
-        eyebrow="Project PR1"
-        title={pr1.headline}
-        description={pr1.description}
+        eyebrow="현재 프로젝트 · PR1"
+        title={"화면은 두고.\n소리만 잇고."}
+        description="PR1은 화면과 청취를 분리하는 LUNDA의 핵심 프로젝트입니다."
         meta={
-          <>
-            <Badge tone="primary">{pr1.badge}</Badge>
-            <span className="text-sm font-medium text-ink-500">
-              {pr1.status} · {pr1.stage}
-            </span>
-          </>
+          <Badge tone="primary">{pr1.badgeKo}</Badge>
         }
+        visualLabel="PR1 핵심 경험"
+        visualItems={[
+          { word: "두고", detail: "화면은 제자리에" },
+          { word: "잇고", detail: "공간을 따라 연결" },
+          { word: "듣고", detail: "필요한 소리만" },
+        ]}
       />
 
       {/* 스크롤 개념 스토리 — Separate → Connect → Listen */}
@@ -40,8 +40,8 @@ export default function Pr1Page() {
       <section className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20">
         <Reveal>
           <SectionHeading
-            eyebrow="Overview"
-            title="핵심 아이디어"
+            eyebrow="현재 목표"
+            title="PR1이 만들고자 하는 경험"
             description={pr1.coreIdea}
           />
         </Reveal>
@@ -63,14 +63,14 @@ export default function Pr1Page() {
         </Reveal>
       </section>
 
-      {/* 시스템 구조 다이어그램 — 짙은 Marina Blue 배경 */}
+      {/* 공개용 경험 흐름 다이어그램 — 짙은 Marina Blue 배경 */}
       <section className="bg-marina-900 text-white">
         <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20">
           <Reveal>
             <SectionHeading
-              eyebrow="System Structure"
-              title="송신기에서 청취까지"
-              description="오디오 입력에서 오픈이어·골전도 출력까지 이어지는 분리형 전송 구조를 검증하고 있습니다."
+              eyebrow="경험 흐름"
+              title="화면을 멀리 두고, 필요한 소리만 이어지는 흐름"
+              description="내부 부품이나 구현 방식이 아니라 사용자가 경험하게 될 핵심 흐름을 공개용 개념도로 설명합니다."
               onDark
             />
           </Reveal>
@@ -79,8 +79,8 @@ export default function Pr1Page() {
               <SignalDiagram nodes={pr1.diagram} />
             </div>
             <p className="mt-4 text-sm text-marina-100/70">
-              * 위 구조는 현재 프로토타입에서 연구 중인 구성이며, 검증 결과에
-              따라 변경될 수 있습니다.
+              * 위 도식은 제품 경험을 설명하는 개념 흐름이며, 실제 제품의 내부
+              구조나 확정된 디자인이 아닙니다.
             </p>
           </Reveal>
         </div>
@@ -90,9 +90,9 @@ export default function Pr1Page() {
       <section className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20">
         <Reveal>
           <SectionHeading
-            eyebrow="Validation"
-            title="현재 검증 중인 항목"
-            description="완성된 성능을 주장하기 전에, 아래 항목을 하나씩 실험으로 확인합니다."
+            eyebrow="검증 기준"
+            title="제품 경험을 판단하는 기준"
+            description="완성된 성능을 주장하기 전에, 실제 사용에서 중요한 기준을 하나씩 확인합니다."
           />
         </Reveal>
         <Reveal delay={100}>
@@ -110,29 +110,16 @@ export default function Pr1Page() {
             ))}
             <li className="flex items-center bg-marina-50 p-5">
               <p className="text-sm leading-relaxed font-medium text-marina-800">
-                검증 결과는 Research 페이지를 통해 순차적으로 공개할 예정입니다.
+                확인된 내용과 현재의 가설을 구분해 공개하겠습니다.
               </p>
             </li>
           </ul>
         </Reveal>
       </section>
 
-      {/* 개발 단계 타임라인 */}
-      <section className="border-t border-line-100 bg-surface">
-        <div className="mx-auto max-w-4xl px-4 py-14 sm:px-6 sm:py-20">
-          <Reveal>
-            <SectionHeading
-              eyebrow="Roadmap"
-              title="PR1 개발 단계"
-              description="문제 정의부터 제품 방향 결정까지 8단계로 진행합니다."
-            />
-          </Reveal>
-          <RoadmapTimeline steps={pr1Roadmap} className="mt-12" />
-        </div>
-      </section>
-
       {/* 정직한 상태 고지 */}
-      <section className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
+      <section className="border-t border-line-100 bg-surface">
+        <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
         <div
           role="note"
           className="flex items-start gap-3 rounded-(--radius-card) border border-marina-200 bg-marina-50 p-5 text-sm leading-relaxed text-marina-800"
@@ -141,12 +128,10 @@ export default function Pr1Page() {
           <p>{pr1.honestyNote}</p>
         </div>
         <div className="mt-10 flex flex-col gap-3 pb-6 sm:flex-row">
-          <ButtonLink href="/development" showArrow>
-            개발 과정 확인하기
+          <ButtonLink href="/research" showArrow>
+            LUNDA 연구 방향 보기
           </ButtonLink>
-          <ButtonLink href="/contact" variant="secondary">
-            의견 남기기
-          </ButtonLink>
+        </div>
         </div>
       </section>
     </>

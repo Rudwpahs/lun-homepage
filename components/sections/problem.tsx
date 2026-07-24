@@ -6,7 +6,7 @@ import { Reveal } from "@/components/ui/reveal";
 /**
  * 문제 정의 섹션.
  * 분할선 그리드 레이아웃은 21st.dev "Grid Feature Cards"(id 2070)의
- * 구조를 참고해 LUN 디자인 시스템에 맞게 재구성한 것입니다.
+ * 구조를 참고해 LUNDA 디자인 시스템에 맞게 재구성한 것입니다.
  */
 export function Problem() {
   return (
@@ -41,7 +41,7 @@ export function Problem() {
           ))}
           <li className="flex items-center bg-marina-50/75 p-6">
             <p className="text-sm leading-relaxed font-medium text-marina-800">
-              LUN은 이 지점을 &lsquo;공간 단위 오디오&rsquo;라는 관점에서
+              LUNDA는 이 지점을 &lsquo;공간 단위 오디오&rsquo;라는 관점에서
               실험과 검증으로 확인하려 합니다.
             </p>
           </li>

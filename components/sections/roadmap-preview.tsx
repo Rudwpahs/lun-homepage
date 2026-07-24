@@ -43,7 +43,6 @@ export function RoadmapPreview() {
                 <h3 className="mt-3 text-sm font-bold text-marina-900">
                   {step.nameKo}
                 </h3>
-                <p className="mt-0.5 text-xs text-ink-500">{step.name}</p>
               </li>
             ))}
           </ol>

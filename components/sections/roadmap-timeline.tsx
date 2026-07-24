@@ -70,9 +70,6 @@ export function RoadmapTimeline({ steps, className }: RoadmapTimelineProps) {
                   </h3>
                   <StatusBadge status={step.status} />
                 </div>
-                <p className="mt-1 text-xs tracking-wide text-ink-500 uppercase">
-                  {step.name}
-                </p>
                 <p className="mt-2 text-sm leading-relaxed text-ink-500">
                   {step.description}
                 </p>

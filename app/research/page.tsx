@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
 import { researchSection } from "@/content/lun-content";
 import { PageHero } from "@/components/layout/page-hero";
-import { ContentIcon } from "@/components/ui/icon";
-import { Reveal } from "@/components/ui/reveal";
-import { SpotlightCard } from "@/components/ui/spotlight-card";
+import { ResearchMap } from "@/components/sections/research-map";
 
 export const metadata: Metadata = {
-  title: "Research — 연구 및 기록",
+  title: "연구 방향",
   description: researchSection.description,
 };
 
@@ -14,39 +12,17 @@ export default function ResearchPage() {
   return (
     <>
       <PageHero
-        eyebrow="Research"
+        eyebrow="연구 방향"
         title={researchSection.title}
         description={researchSection.description}
+        visualLabel="LUNDA 연구 핵심"
+        visualItems={[
+          { word: "분리", detail: "화면과 청취" },
+          { word: "연결", detail: "사람과 공간" },
+          { word: "개방", detail: "소리와 주변" },
+        ]}
       />
-
-      <section className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20">
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {researchSection.categories.map((category, index) => (
-            <Reveal key={category.title} delay={Math.min(index * 80, 240)}>
-              <SpotlightCard className="glass-strong flex h-full flex-col rounded-(--radius-card) p-7">
-                <div className="flex items-center justify-between">
-                  <span className="flex size-11 items-center justify-center rounded-full bg-marina-50 text-marina-700">
-                    <ContentIcon name={category.icon} className="size-5" />
-                  </span>
-                  {/* 게시물이 준비되기 전까지는 '준비 중' 상태를 정직하게 표시 */}
-                  <span className="rounded-full border border-line-300 px-3 py-1 text-xs font-semibold text-ink-500">
-                    {researchSection.emptyStateLabel}
-                  </span>
-                </div>
-                <h2 className="mt-5 text-lg font-bold text-marina-900">
-                  {category.title}
-                </h2>
-                <p className="mt-2 flex-1 text-sm leading-relaxed text-ink-500">
-                  {category.description}
-                </p>
-                <p className="mt-4 border-t border-line-100 pt-4 text-xs text-ink-500">
-                  {researchSection.emptyStateDescription}
-                </p>
-              </SpotlightCard>
-            </Reveal>
-          ))}
-        </div>
-      </section>
+      <ResearchMap />
     </>
   );
 }

@@ -9,17 +9,17 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
     default: siteConfig.title,
-    template: "%s | LUN",
+    template: "%s | LUNDA",
   },
   description: siteConfig.description,
   keywords: [
-    "LUN",
+    "LUNDA",
     "오디오 인터페이스",
     "무선 오디오",
     "오픈이어",
     "골전도",
     "화면 의존",
-    "기술 프로젝트",
+    "오디오 연구개발",
   ],
   openGraph: {
     type: "website",

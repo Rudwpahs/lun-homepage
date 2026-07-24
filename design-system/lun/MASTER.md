@@ -6,7 +6,7 @@
 
 ---
 
-**Project:** LUN
+**Project:** LUNDA
 **Generated:** 2026-07-17 23:14:54
 **Category:** Meditation & Mindfulness
 **Design Dials:** Motion 3/10 (Subtle) | Density 5/10 (Standard)

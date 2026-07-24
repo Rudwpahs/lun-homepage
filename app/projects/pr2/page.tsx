@@ -17,24 +17,25 @@ export default function Pr2Page() {
   return (
     <>
       <PageHero
-        eyebrow="Project PR2"
-        title={pr2.headline}
-        description={pr2.description}
+        eyebrow="미래 프로젝트 · PR2"
+        title={"더 작게.\n더 자연스럽게."}
+        description="PR2는 PR1 검증 이후 구체화할 일상형 오디오 연구입니다."
         meta={
-          <>
-            <Badge tone="future">{pr2.badge}</Badge>
-            <span className="text-sm font-medium text-ink-500">
-              {pr2.status} · {pr2.stage}
-            </span>
-          </>
+          <Badge tone="future">{pr2.badgeKo}</Badge>
         }
+        visualLabel="PR2 핵심 방향"
+        visualItems={[
+          { word: "작게", detail: "부담 없는 크기" },
+          { word: "낮게", detail: "드러남은 최소로" },
+          { word: "열리게", detail: "주변과 함께 듣기" },
+        ]}
       />
 
       {/* 세 가지 키워드 */}
       <section className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20">
         <Reveal>
           <SectionHeading
-            eyebrow="Keywords"
+            eyebrow="핵심 방향"
             title="세 가지 연구 키워드"
             description="PR2는 귀 내부의 자연스러운 공간을 활용하는 착용 방식을 중심으로, 다음 세 가지 방향을 탐색합니다."
           />
@@ -63,7 +64,7 @@ export default function Pr2Page() {
         <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20">
           <Reveal>
             <SectionHeading
-              eyebrow="Research Directions"
+              eyebrow="탐색 방향"
               title="탐색 중인 연구 방향"
             />
           </Reveal>
@@ -90,7 +91,7 @@ export default function Pr2Page() {
       <section className="mx-auto max-w-4xl px-4 py-14 sm:px-6 sm:py-20">
         <Reveal>
           <SectionHeading
-            eyebrow="After PR1"
+            eyebrow="PR1 다음"
             title="PR1 검증 이후 본격화됩니다"
             description={pr2.relationToPr1}
           />
@@ -114,9 +115,6 @@ export default function Pr2Page() {
         <div className="mt-10 flex flex-col gap-3 sm:flex-row">
           <ButtonLink href="/projects/pr1" showArrow>
             현재 진행 중인 PR1 보기
-          </ButtonLink>
-          <ButtonLink href="/contact" variant="secondary">
-            의견 남기기
           </ButtonLink>
         </div>
       </section>

@@ -61,14 +61,14 @@ function Connector() {
 }
 
 /**
- * PR1 시스템 구조 다이어그램.
+ * PR1 공개용 경험 흐름 다이어그램.
  * 짙은 Marina Blue 배경 위에서 사용하는 것을 전제로 한 색상입니다.
  * 모바일에서는 세로 구조로 전환되어 가로로 잘리지 않습니다.
  */
 export function SignalDiagram({ nodes, className }: SignalDiagramProps) {
   return (
     <ol
-      aria-label="PR1 오디오 전송 구조"
+      aria-label="PR1의 화면 분리형 오디오 경험 흐름"
       className={cn(
         "flex flex-col items-stretch md:flex-row md:items-center",
         className,

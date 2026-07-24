@@ -1,7 +1,7 @@
 """
 PR1 스토리 스크롤 스크럽용 개념 애니메이션 프레임 생성기.
 
-LUN 진실성 규칙: 실제 제품처럼 보이는 렌더링을 만들지 않는다.
+LUNDA 진실성 규칙: 실제 제품처럼 보이는 렌더링을 만들지 않는다.
 따라서 무선 신호·오디오 파형·공간·사람의 이동을 추상적인 선과 점으로만 표현한다.
 (05_DESIGN_REQUIREMENTS / 09_TRUTH_AND_SAFETY_RULES 준수)
 
@@ -10,7 +10,7 @@ LUN 진실성 규칙: 실제 제품처럼 보이는 렌더링을 만들지 않�
   Phase 2 — Connect : 송신 노드에서 무선 신호 아크가 공간을 가로질러 퍼진다.
   Phase 3 — Listen  : 사람 곁에 오픈이어 파형이 나타난다. 화면 없이 청취.
 
-색상은 app/globals.css의 LUN 디자인 토큰과 동일 계열.
+색상은 app/globals.css의 LUNDA 디자인 토큰과 동일 계열.
 
 사용법: python scripts/generate_pr1_story_frames.py
 출력:   public/frames/pr1-story/frame_0001.jpg ... frame_0100.jpg (1600x900)
@@ -24,7 +24,7 @@ from PIL import Image, ImageDraw, ImageFilter
 FRAME_COUNT = 100
 W, H = 1600, 900
 
-# LUN 토큰 (globals.css와 동일 계열)
+# LUNDA 토큰 (globals.css와 동일 계열)
 BG = (6, 34, 46)          # marina-950
 GRID = (12, 62, 82)       # marina-800
 LINE = (181, 210, 225)    # marina-200

@@ -137,10 +137,7 @@ export function Pr1Story() {
             {pr1Story.phases.map((p, i) => (
               <li key={p.key}>
                 <h3 className="font-bold text-aqua-300">
-                  {String(i + 1).padStart(2, "0")} {p.key}
-                  <span className="ml-2 text-sm font-medium text-marina-100">
-                    {p.title}
-                  </span>
+                  {String(i + 1).padStart(2, "0")} {p.title}
                 </h3>
                 <p className="mt-1 text-sm leading-relaxed text-marina-100/80">
                   {p.description}
@@ -201,10 +198,7 @@ export function Pr1Story() {
                     <span className="mr-2 text-aqua-300">
                       {String(i + 1).padStart(2, "0")}
                     </span>
-                    {p.key}
-                    <span className="ml-2 text-xs font-medium text-marina-100/80 sm:text-sm">
-                      {p.title}
-                    </span>
+                    {p.title}
                   </h3>
                   <p
                     className={cn(

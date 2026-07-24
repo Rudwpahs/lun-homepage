@@ -2,7 +2,7 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 /**
- * LUN 로고 컴포넌트.
+ * LUNDA 로고 컴포넌트.
  *
  * 현재는 텍스트 워드마크 + 간단한 임시 웨이브 심볼을 사용합니다.
  * 향후 고래에서 영감을 받은 정식 심볼 로고가 확정되면
@@ -19,7 +19,7 @@ export function Logo({
   return (
     <Link
       href="/"
-      aria-label="LUN 홈으로 이동"
+      aria-label="LUNDA 홈으로 이동"
       className={cn(
         "inline-flex min-h-11 items-center gap-2.5 font-bold tracking-[0.2em]",
         onDark ? "text-white" : "text-marina-900",
@@ -41,7 +41,7 @@ export function Logo({
         />
         <circle cx="37" cy="10" r="2" fill="currentColor" />
       </svg>
-      <span className="text-lg leading-none">LUN</span>
+      <span className="text-lg leading-none">LUNDA</span>
     </Link>
   );
 }
