@@ -4,6 +4,7 @@ import { PageHero } from "@/components/layout/page-hero";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { ButtonLink } from "@/components/ui/button-link";
 import { Reveal } from "@/components/ui/reveal";
+import { SpotlightCard } from "@/components/ui/spotlight-card";
 
 export const metadata: Metadata = {
   title: "About — LUN에 대하여",
@@ -55,19 +56,19 @@ export default function AboutPage() {
         <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {brand.values.map((value, index) => (
             <Reveal key={value.key} delay={Math.min(index * 80, 240)}>
-              <article className="h-full rounded-(--radius-card) border border-line-100 bg-surface p-6 shadow-card">
+              <SpotlightCard className="glass-strong h-full rounded-(--radius-card) p-6">
                 <h3 className="font-bold text-marina-900">{value.key}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-ink-500">
                   {value.description}
                 </p>
-              </article>
+              </SpotlightCard>
             </Reveal>
           ))}
         </div>
       </section>
 
       {/* 현재 상태 — 정직 고지 */}
-      <section className="border-t border-line-100 bg-surface">
+      <section className="border-t border-line-100/60">
         <div className="mx-auto max-w-4xl px-4 py-14 text-center sm:px-6">
           <Reveal>
             <p className="mx-auto max-w-2xl text-base leading-relaxed text-ink-700">

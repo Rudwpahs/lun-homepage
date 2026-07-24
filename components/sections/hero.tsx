@@ -5,7 +5,8 @@ import { Reveal } from "@/components/ui/reveal";
 
 export function Hero() {
   return (
-    <section className="overflow-hidden border-b border-line-100 bg-surface">
+    <section className="overflow-hidden border-b border-line-100/60">
+      {/* 배경 투명 → 상단 오로라가 히어로 뒤로 은은히 비친다 */}
       <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-2 lg:py-28">
         <Reveal>
           <p className="text-sm font-semibold tracking-widest text-marina-600 uppercase">

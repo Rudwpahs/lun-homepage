@@ -48,7 +48,7 @@ export default function DevelopmentPage() {
           {statusOrder.map((status) => (
             <div
               key={status}
-              className="rounded-(--radius-card) border border-line-100 bg-surface p-4"
+              className="glass rounded-(--radius-card) p-4"
             >
               <dt>
                 <StatusBadge status={status} />
@@ -75,7 +75,7 @@ export default function DevelopmentPage() {
       </section>
 
       {/* PR2 로드맵 — 작은 비중 */}
-      <section className="border-t border-line-100 bg-surface">
+      <section className="border-t border-line-100/60">
         <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6 sm:py-14">
           <Reveal>
             <SectionHeading
@@ -90,7 +90,7 @@ export default function DevelopmentPage() {
 
       {/* 개발 일지 준비 중 */}
       <section className="mx-auto max-w-4xl px-4 py-14 sm:px-6 sm:py-16">
-        <div className="rounded-(--radius-card) border border-dashed border-line-300 bg-paper p-8 text-center">
+        <div className="glass rounded-(--radius-card) border-dashed border-line-300 p-8 text-center">
           <NotebookPen
             className="mx-auto size-8 text-marina-600"
             strokeWidth={1.5}

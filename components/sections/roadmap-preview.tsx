@@ -7,7 +7,7 @@ import { Reveal } from "@/components/ui/reveal";
 /** 홈 화면 개발 단계 프리뷰 — 전체 로드맵은 /development에서 확인 */
 export function RoadmapPreview() {
   return (
-    <section className="border-y border-line-100 bg-surface">
+    <section className="border-y border-line-100/60">
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
         <Reveal>
           <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
@@ -32,7 +32,7 @@ export function RoadmapPreview() {
             {pr1Roadmap.map((step, index) => (
               <li
                 key={step.name}
-                className="rounded-(--radius-card) border border-line-100 bg-paper p-5"
+                className="glass rounded-(--radius-card) p-5 transition-transform duration-300 motion-safe:hover:-translate-y-0.5"
               >
                 <div className="flex items-center justify-between gap-2">
                   <span className="text-sm font-semibold tracking-widest text-line-300">

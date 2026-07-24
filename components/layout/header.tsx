@@ -11,6 +11,7 @@ import { ButtonLink } from "@/components/ui/button-link";
 
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
 
   // 메뉴 열림 중 배경 스크롤 잠금
@@ -21,11 +22,27 @@ export function Header() {
     };
   }, [menuOpen]);
 
+  // 스크롤 반응: 최상단에서는 옅게, 8px 이상 내려가면 진한 글래스 + 하단 경계선
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-line-100 bg-paper/90 backdrop-blur-sm">
+    <header
+      className={cn(
+        "sticky top-0 z-50 backdrop-blur-md backdrop-saturate-150 transition-[background-color,border-color] duration-300",
+        // 최상단: 거의 투명 / 스크롤 시: 프로스티드 글래스 + 하단 하어라인
+        scrolled || menuOpen
+          ? "border-b border-line-100/70 bg-paper/70"
+          : "border-b border-transparent bg-paper/20",
+      )}
+    >
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
         <Logo />
 
@@ -81,7 +98,7 @@ export function Header() {
       <div
         id="mobile-menu"
         hidden={!menuOpen}
-        className="border-t border-line-100 bg-paper lg:hidden"
+        className="border-t border-line-100/70 bg-paper/85 backdrop-blur-md backdrop-saturate-150 lg:hidden"
         // 메뉴 내 링크를 클릭하면 (라우트 이동과 함께) 메뉴를 닫는다
         onClick={(event) => {
           if ((event.target as HTMLElement).closest("a")) {

@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { ButtonLink } from "@/components/ui/button-link";
 import { SignalDiagram } from "@/components/sections/signal-diagram";
 import { Reveal } from "@/components/ui/reveal";
+import { SpotlightCard } from "@/components/ui/spotlight-card";
 
 /**
  * 홈 화면 PR1 핵심 섹션.
@@ -31,12 +32,15 @@ export function Pr1Showcase() {
         </Reveal>
 
         <Reveal delay={100}>
-          <div className="mt-12 rounded-(--radius-card) border border-white/10 bg-white/5 p-5 sm:p-8">
+          <SpotlightCard
+            dark
+            className="glass-dark mt-12 rounded-(--radius-card) p-5 sm:p-8"
+          >
             <h3 className="text-sm font-semibold tracking-widest text-aqua-300 uppercase">
               System Structure
             </h3>
             <SignalDiagram nodes={pr1.diagram} className="mt-6" />
-          </div>
+          </SpotlightCard>
         </Reveal>
 
         <Reveal delay={150}>

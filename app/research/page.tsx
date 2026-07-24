@@ -3,6 +3,7 @@ import { researchSection } from "@/content/lun-content";
 import { PageHero } from "@/components/layout/page-hero";
 import { ContentIcon } from "@/components/ui/icon";
 import { Reveal } from "@/components/ui/reveal";
+import { SpotlightCard } from "@/components/ui/spotlight-card";
 
 export const metadata: Metadata = {
   title: "Research — 연구 및 기록",
@@ -22,7 +23,7 @@ export default function ResearchPage() {
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {researchSection.categories.map((category, index) => (
             <Reveal key={category.title} delay={Math.min(index * 80, 240)}>
-              <article className="flex h-full flex-col rounded-(--radius-card) border border-line-100 bg-surface p-7 shadow-card">
+              <SpotlightCard className="glass-strong flex h-full flex-col rounded-(--radius-card) p-7">
                 <div className="flex items-center justify-between">
                   <span className="flex size-11 items-center justify-center rounded-full bg-marina-50 text-marina-700">
                     <ContentIcon name={category.icon} className="size-5" />
@@ -41,7 +42,7 @@ export default function ResearchPage() {
                 <p className="mt-4 border-t border-line-100 pt-4 text-xs text-ink-500">
                   {researchSection.emptyStateDescription}
                 </p>
-              </article>
+              </SpotlightCard>
             </Reveal>
           ))}
         </div>
