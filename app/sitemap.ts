@@ -8,7 +8,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/projects/pr2",
     "/development",
     "/research",
-    "/about",
   ];
 
   return routes.map((route) => ({
