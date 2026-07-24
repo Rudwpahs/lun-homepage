@@ -63,11 +63,11 @@ design-system/lun/      # UI UX Pro Max 생성 원본 (참고용)
 
 | 경로 | 내용 |
 |---|---|
-| `/` | 첫 스크롤에 자동 재생되는 `LUNDA → ELUNDA → 이룬다 → LUNDA` 시퀀스와 `분리·연결·몰입` 인터랙티브 소개 |
-| `/projects/pr1` | PR1 개요, **스크롤 개념 스토리(Separate→Connect→Listen)**, 공개용 경험 흐름, 제품 경험 기준, 정직 고지 |
+| `/` | 첫 스크롤의 `LUNDA → ELUNDA → 이룬다 → LUNDA` 시퀀스, `분리·연결·몰입` 소개, 비전·프로젝트 흐름 |
+| `/projects/pr1` | PR1 개요, **분리→연결→청취** 개념 스토리, 공개용 경험 흐름, 제품 경험 기준, 정직 고지 |
 | `/projects/pr2` | PR2 키워드·연구 방향, PR1과의 관계, 5단계 로드맵, 정직 고지 |
 | `/development` | 문제 우선·단계 검증·근거 우선·책임 있는 제품화 원칙 |
-| `/research` | Screen-light, Spatial Audio Interface 등 6개 공개 연구 방향 |
+| `/research` | `분리·공간·개방·책임`을 선택해 살펴보는 인터랙티브 연구 지도 |
 
 ## 콘텐츠 수정 방법
 
