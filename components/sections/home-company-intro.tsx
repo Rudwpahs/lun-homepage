@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { homeIntro } from "@/content/lun-content";
@@ -8,105 +8,10 @@ import styles from "./home-company-intro.module.css";
 
 export function HomeCompanyIntro() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isInView, setIsInView] = useState(false);
-  const [hasInteracted, setHasInteracted] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
-  const stageRef = useRef<HTMLDivElement>(null);
   const activeItem = homeIntro.keywords[activeIndex];
-
-  useEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => setIsInView(entry.isIntersecting),
-      { threshold: 0.45 },
-    );
-
-    observer.observe(section);
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    if (
-      !isInView ||
-      hasInteracted ||
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    ) {
-      return;
-    }
-
-    const interval = window.setInterval(() => {
-      setActiveIndex((current) => (current + 1) % homeIntro.keywords.length);
-    }, 1800);
-
-    return () => window.clearInterval(interval);
-  }, [hasInteracted, isInView]);
-
-  const activateKeyword = (index: number) => {
-    setHasInteracted(true);
-    setActiveIndex(index);
-  };
-
-  const handleStagePointerMove = (
-    event: React.PointerEvent<HTMLDivElement>,
-  ) => {
-    if (event.pointerType === "touch") return;
-
-    const stage = stageRef.current;
-    if (!stage) return;
-
-    const rect = stage.getBoundingClientRect();
-    const x = ((event.clientX - rect.left) / rect.width) * 100;
-    const y = ((event.clientY - rect.top) / rect.height) * 100;
-
-    stage.style.setProperty("--stage-x", `${x}%`);
-    stage.style.setProperty("--stage-y", `${y}%`);
-    stage.style.setProperty("--stage-rotate-y", `${((x - 50) / 50) * 1.4}deg`);
-    stage.style.setProperty("--stage-rotate-x", `${((50 - y) / 50) * 1.2}deg`);
-  };
-
-  const resetStage = () => {
-    const stage = stageRef.current;
-    if (!stage) return;
-
-    stage.style.setProperty("--stage-x", "50%");
-    stage.style.setProperty("--stage-y", "30%");
-    stage.style.setProperty("--stage-rotate-x", "0deg");
-    stage.style.setProperty("--stage-rotate-y", "0deg");
-  };
-
-  const handleKeywordPointerMove = (
-    event: React.PointerEvent<HTMLButtonElement>,
-  ) => {
-    if (event.pointerType === "touch") return;
-
-    const button = event.currentTarget;
-    const rect = button.getBoundingClientRect();
-    const x = ((event.clientX - rect.left) / rect.width) * 100;
-    const y = ((event.clientY - rect.top) / rect.height) * 100;
-
-    button.style.setProperty("--card-x", `${x}%`);
-    button.style.setProperty("--card-y", `${y}%`);
-    button.style.setProperty("--card-rotate-y", `${((x - 50) / 50) * 5}deg`);
-    button.style.setProperty("--card-rotate-x", `${((50 - y) / 50) * 4}deg`);
-    button.style.setProperty("--magnet-x", `${((x - 50) / 50) * 5}px`);
-    button.style.setProperty("--magnet-y", `${((y - 50) / 50) * 4}px`);
-  };
-
-  const resetKeyword = (event: React.PointerEvent<HTMLButtonElement>) => {
-    const button = event.currentTarget;
-    button.style.setProperty("--card-x", "50%");
-    button.style.setProperty("--card-y", "30%");
-    button.style.setProperty("--card-rotate-x", "0deg");
-    button.style.setProperty("--card-rotate-y", "0deg");
-    button.style.setProperty("--magnet-x", "0px");
-    button.style.setProperty("--magnet-y", "0px");
-  };
 
   return (
     <section
-      ref={sectionRef}
       id="about-lunda"
       aria-labelledby="about-lunda-title"
       className={styles.section}
@@ -114,12 +19,9 @@ export function HomeCompanyIntro() {
       <span className={`${styles.ambient} ${styles.ambientOne}`} aria-hidden />
       <span className={`${styles.ambient} ${styles.ambientTwo}`} aria-hidden />
 
-      <div
-        ref={stageRef}
-        className={styles.stage}
-        onPointerMove={handleStagePointerMove}
-        onPointerLeave={resetStage}
-      >
+      <div className={styles.stage}>
+        <span className={styles.liquidFlow} aria-hidden />
+
         <div className={styles.copy}>
           <p className={styles.brand}>LUNDA</p>
           <h2 id="about-lunda-title" className={styles.title}>
@@ -135,7 +37,7 @@ export function HomeCompanyIntro() {
         </div>
 
         <div className={styles.experience}>
-          <p className={styles.instruction}>선택해 보세요</p>
+          <p className={styles.instruction}>세 단어로 보는 LUNDA</p>
 
           <div
             className={styles.keywords}
@@ -158,11 +60,9 @@ export function HomeCompanyIntro() {
                   data-active={isActive}
                   aria-pressed={isActive}
                   aria-controls="lunda-keyword-detail"
-                  onPointerEnter={() => activateKeyword(index)}
-                  onFocus={() => activateKeyword(index)}
-                  onClick={() => activateKeyword(index)}
-                  onPointerMove={handleKeywordPointerMove}
-                  onPointerLeave={resetKeyword}
+                  onPointerEnter={() => setActiveIndex(index)}
+                  onFocus={() => setActiveIndex(index)}
+                  onClick={() => setActiveIndex(index)}
                 >
                   <span className={styles.keyword}>{item.keyword}</span>
                   <span className={styles.keywordHint}>{item.hint}</span>
