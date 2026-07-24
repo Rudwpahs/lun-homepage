@@ -4,6 +4,9 @@ import { useEffect, useRef } from "react";
 import { brand } from "@/content/lun-content";
 import styles from "./lunda-vision-animation.module.css";
 
+const ANIMATION_DURATION_MS = 6200;
+const OPENING_SCROLL_TOLERANCE = 8;
+
 const clamp = (value: number) => Math.min(Math.max(value, 0), 1);
 
 const smoothStep = (value: number) => {
@@ -16,25 +19,22 @@ const segment = (progress: number, start: number, end: number) =>
 
 export function LundaVisionAnimation() {
   const storyRef = useRef<HTMLElement>(null);
-  const stickyRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const story = storyRef.current;
-    const sticky = stickyRef.current;
     const stage = stageRef.current;
-    if (!story || !sticky || !stage) return;
+    if (!story || !stage) return;
 
     let animationFrame = 0;
-    let startScroll = 0;
-    let endScroll = 1;
+    let animationStartedAt = 0;
+    let phase: "idle" | "playing" | "complete" = "idle";
+    let touchStartY: number | null = null;
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    );
 
-    const renderProgress = () => {
-      animationFrame = 0;
-
-      const progress = clamp(
-        (window.scrollY - startScroll) / (endScroll - startScroll),
-      );
+    const renderProgress = (progress: number) => {
       const eArrival = segment(progress, 0.015, 0.2);
       const latinExit = segment(progress, 0.36, 0.48);
       const koreanArrival = segment(progress, 0.42, 0.56);
@@ -122,32 +122,153 @@ export function LundaVisionAnimation() {
       );
     };
 
-    const scheduleRender = () => {
-      if (animationFrame) return;
-      animationFrame = window.requestAnimationFrame(renderProgress);
+    const setPhase = (nextPhase: typeof phase) => {
+      phase = nextPhase;
+      stage.dataset.phase = nextPhase;
     };
 
-    const measure = () => {
-      const storyTop = window.scrollY + story.getBoundingClientRect().top;
-      const stickyTop = Number.parseFloat(
-        window.getComputedStyle(sticky).top,
-      );
+    const finishAnimation = () => {
+      if (animationFrame) {
+        window.cancelAnimationFrame(animationFrame);
+        animationFrame = 0;
+      }
 
-      startScroll = storyTop - (Number.isFinite(stickyTop) ? stickyTop : 0);
-      endScroll = Math.max(
-        startScroll + 1,
-        storyTop + story.offsetHeight - window.innerHeight,
-      );
-      scheduleRender();
+      renderProgress(1);
+      setPhase("complete");
     };
 
-    measure();
-    window.addEventListener("scroll", scheduleRender, { passive: true });
-    window.addEventListener("resize", measure);
+    const playAnimation = (timestamp: number) => {
+      if (!animationStartedAt) animationStartedAt = timestamp;
+
+      const progress = clamp(
+        (timestamp - animationStartedAt) / ANIMATION_DURATION_MS,
+      );
+      renderProgress(progress);
+
+      if (progress < 1) {
+        animationFrame = window.requestAnimationFrame(playAnimation);
+        return;
+      }
+
+      animationFrame = 0;
+      setPhase("complete");
+    };
+
+    const startAnimation = () => {
+      if (phase !== "idle") return;
+
+      setPhase("playing");
+      animationStartedAt = 0;
+      animationFrame = window.requestAnimationFrame(playAnimation);
+    };
+
+    const shouldHoldOpening = () => {
+      const storyRect = story.getBoundingClientRect();
+      return (
+        phase !== "complete" &&
+        window.scrollY <= OPENING_SCROLL_TOLERANCE &&
+        storyRect.bottom > 0
+      );
+    };
+
+    const handleWheel = (event: WheelEvent) => {
+      if (event.deltaY <= 0 || !shouldHoldOpening()) return;
+
+      event.preventDefault();
+      startAnimation();
+    };
+
+    const handleTouchStart = (event: TouchEvent) => {
+      touchStartY = event.touches[0]?.clientY ?? null;
+    };
+
+    const handleTouchMove = (event: TouchEvent) => {
+      const currentY = event.touches[0]?.clientY;
+      if (touchStartY === null || currentY === undefined) return;
+
+      const downwardScrollIntent = touchStartY - currentY > 8;
+      if (!downwardScrollIntent || !shouldHoldOpening()) return;
+
+      event.preventDefault();
+      startAnimation();
+    };
+
+    const clearTouchStart = () => {
+      touchStartY = null;
+    };
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      const target = event.target as HTMLElement | null;
+      if (
+        target?.matches("input, textarea, select, [contenteditable='true']") ||
+        event.altKey ||
+        event.ctrlKey ||
+        event.metaKey ||
+        event.shiftKey
+      ) {
+        return;
+      }
+
+      const isForwardScrollKey = [
+        "ArrowDown",
+        "PageDown",
+        " ",
+        "Spacebar",
+        "End",
+      ].includes(event.key);
+
+      if (!isForwardScrollKey || !shouldHoldOpening()) return;
+
+      event.preventDefault();
+      startAnimation();
+    };
+
+    const handleUnexpectedScroll = () => {
+      if (
+        phase === "idle" &&
+        window.scrollY > OPENING_SCROLL_TOLERANCE &&
+        story.getBoundingClientRect().bottom > 0
+      ) {
+        startAnimation();
+      }
+    };
+
+    const handleReducedMotionChange = (event: MediaQueryListEvent) => {
+      if (event.matches) finishAnimation();
+    };
+
+    stage.dataset.phase = "idle";
+    renderProgress(0);
+
+    if (
+      reducedMotion.matches ||
+      window.scrollY > OPENING_SCROLL_TOLERANCE
+    ) {
+      finishAnimation();
+    }
+
+    window.addEventListener("wheel", handleWheel, { passive: false });
+    window.addEventListener("touchstart", handleTouchStart, {
+      passive: true,
+    });
+    window.addEventListener("touchmove", handleTouchMove, { passive: false });
+    window.addEventListener("touchend", clearTouchStart, { passive: true });
+    window.addEventListener("touchcancel", clearTouchStart, { passive: true });
+    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("scroll", handleUnexpectedScroll, {
+      passive: true,
+    });
+    reducedMotion.addEventListener("change", handleReducedMotionChange);
 
     return () => {
-      window.removeEventListener("scroll", scheduleRender);
-      window.removeEventListener("resize", measure);
+      window.removeEventListener("wheel", handleWheel);
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchmove", handleTouchMove);
+      window.removeEventListener("touchend", clearTouchStart);
+      window.removeEventListener("touchcancel", clearTouchStart);
+      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("scroll", handleUnexpectedScroll);
+      reducedMotion.removeEventListener("change", handleReducedMotionChange);
       if (animationFrame) window.cancelAnimationFrame(animationFrame);
     };
   }, []);
@@ -187,11 +308,12 @@ export function LundaVisionAnimation() {
       aria-labelledby="lunda-vision-title"
     >
       <h1 id="lunda-vision-title" className="sr-only">
-        LUNDA. 스크롤하면 E가 결합해 이룬다로 변한 뒤 다시 LUNDA로
-        돌아옵니다. {brand.tagline}
+        LUNDA. 첫 스크롤을 시작하면 E가 결합해 이룬다로 변한 뒤 다시
+        LUNDA로 돌아옵니다. 다음 스크롤에서 회사 소개가 이어집니다.{" "}
+        {brand.tagline}
       </h1>
 
-      <div ref={stickyRef} className={styles.sticky}>
+      <div className={styles.sticky}>
         <div
           ref={stageRef}
           className={styles.stage}
@@ -217,7 +339,7 @@ export function LundaVisionAnimation() {
             <p className={styles.tagline}>{brand.tagline}</p>
 
             <span className={`${styles.cue} ${styles.startCue}`} aria-hidden>
-              SCROLL
+              SCROLL TO START
             </span>
             <span className={`${styles.cue} ${styles.endCue}`} aria-hidden>
               ABOUT LUNDA
