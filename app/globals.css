@@ -106,16 +106,60 @@ body {
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
   box-shadow: var(--glass-shadow);
-  backdrop-filter: blur(var(--glass-blur)) saturate(1.4);
-  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.4);
+  backdrop-filter: blur(var(--glass-blur)) saturate(1.55);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.55);
 }
 
 .glass-strong {
   background: var(--glass-bg-strong);
   border: 1px solid var(--glass-border);
   box-shadow: var(--glass-shadow);
-  backdrop-filter: blur(var(--glass-blur)) saturate(1.3);
-  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.3);
+  backdrop-filter: blur(var(--glass-blur)) saturate(1.45);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.45);
+}
+
+/* 읽기 진행률 — 장식용 thin marina line */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 60;
+  height: 2px;
+  pointer-events: none;
+  background: transparent;
+}
+
+.scroll-progress > span {
+  display: block;
+  height: 100%;
+  transform-origin: left center;
+  background: linear-gradient(
+    90deg,
+    var(--color-marina-600),
+    var(--color-aqua-500)
+  );
+  box-shadow: 0 0 12px rgb(53 181 194 / 0.35);
+  will-change: transform;
+}
+
+@media (forced-colors: active) {
+  .glass,
+  .glass-strong,
+  .glass-dark,
+  .liquid-nav,
+  .liquid-control,
+  .liquid-icon-button {
+    border: 1px solid CanvasText;
+    background: Canvas;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .scroll-progress > span {
+    background: Highlight;
+    box-shadow: none;
+  }
 }
 
 .glass-dark {
@@ -611,8 +655,13 @@ body {
   .signal-line,
   .signal-pulse,
   .aurora__blob,
-  .liquid-nav::before {
+  .liquid-nav::before,
+  .scroll-progress > span {
     animation: none;
+  }
+
+  .scroll-progress {
+    display: none;
   }
 
   .liquid-nav,

@@ -36,3 +36,9 @@ export const navItems: NavItem[] = [
   { label: "PR1", href: "/projects/pr1" },
   { label: "PR2", href: "/projects/pr2" },
 ];
+
+/** 푸터에만 노출하는 보조 링크 (헤더 미니멀 유지) */
+export const footerExtraItems: NavItem[] = [
+  { label: "홈", href: "/" },
+  { label: "개발 원칙", href: "/development" },
+];

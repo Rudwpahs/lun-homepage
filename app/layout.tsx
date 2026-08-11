@@ -4,6 +4,7 @@ import { siteConfig } from "@/lib/site-config";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { AuroraBackground } from "@/components/sections/aurora-background";
+import { ScrollProgress } from "@/components/ui/scroll-progress";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -51,6 +52,7 @@ export default function RootLayout({
         >
           본문 바로가기
         </a>
+        <ScrollProgress />
         {/* 전역 오로라 배경 (z-0). 콘텐츠는 z-10 이상으로 올려 위에 얹는다. */}
         <AuroraBackground />
         <Header />

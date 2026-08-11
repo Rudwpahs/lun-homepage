@@ -1,13 +1,15 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { homeVision } from "@/content/lun-content";
+import { useRotatingIndex } from "@/lib/use-rotating-index";
 import styles from "./home-vision.module.css";
 
 export function HomeVision() {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const { activeIndex, selectIndex } = useRotatingIndex(
+    homeVision.nodes.length,
+  );
   const activeNode = homeVision.nodes[activeIndex];
 
   return (
@@ -37,7 +39,39 @@ export function HomeVision() {
             </span>
           </div>
 
-          <div className={styles.nodes} role="group" aria-label="LUNDA의 세 가지 기준">
+          <div
+            className={styles.nodes}
+            role="tablist"
+            aria-label="LUNDA의 세 가지 기준"
+            onKeyDown={(event) => {
+              const focusTab = (index: number) => {
+                selectIndex(index, { user: true });
+                window.requestAnimationFrame(() => {
+                  document.getElementById(`home-vision-tab-${index}`)?.focus();
+                });
+              };
+
+              if (event.key === "ArrowRight" || event.key === "ArrowDown") {
+                event.preventDefault();
+                focusTab((activeIndex + 1) % homeVision.nodes.length);
+              }
+              if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+                event.preventDefault();
+                focusTab(
+                  (activeIndex - 1 + homeVision.nodes.length) %
+                    homeVision.nodes.length,
+                );
+              }
+              if (event.key === "Home") {
+                event.preventDefault();
+                focusTab(0);
+              }
+              if (event.key === "End") {
+                event.preventDefault();
+                focusTab(homeVision.nodes.length - 1);
+              }
+            }}
+          >
             {homeVision.nodes.map((node, index) => {
               const isActive = index === activeIndex;
 
@@ -45,12 +79,15 @@ export function HomeVision() {
                 <button
                   key={node.keyword}
                   type="button"
+                  role="tab"
+                  id={`home-vision-tab-${index}`}
                   className={styles.node}
                   data-active={isActive}
-                  aria-pressed={isActive}
-                  onPointerEnter={() => setActiveIndex(index)}
-                  onFocus={() => setActiveIndex(index)}
-                  onClick={() => setActiveIndex(index)}
+                  aria-selected={isActive}
+                  tabIndex={isActive ? 0 : -1}
+                  onPointerEnter={() => selectIndex(index, { user: true })}
+                  onFocus={() => selectIndex(index, { user: true })}
+                  onClick={() => selectIndex(index, { user: true })}
                 >
                   {node.keyword}
                 </button>

@@ -1,8 +1,10 @@
 import Link from "next/link";
-import { navItems } from "@/lib/site-config";
+import { footerExtraItems, navItems } from "@/lib/site-config";
 import { Logo } from "@/components/layout/logo";
 
 export function Footer() {
+  const links = [...footerExtraItems, ...navItems];
+
   return (
     <footer className="relative z-10 bg-marina-950 text-marina-100">
       <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
@@ -19,7 +21,7 @@ export function Footer() {
               메뉴
             </h2>
             <ul className="mt-4 grid grid-cols-2 gap-x-10 gap-y-1">
-              {navItems.map((item) => (
+              {links.map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}
@@ -34,10 +36,10 @@ export function Footer() {
         </div>
 
         <div className="mt-12 border-t border-white/10 pt-6 text-xs leading-relaxed text-marina-100/60">
-          <p>
-            PR1은 현재 개발 중이며, 아직 판매 제품이 아닙니다.
+          <p>PR1은 현재 개발 중이며, 아직 판매 제품이 아닙니다.</p>
+          <p className="mt-2">
+            © {new Date().getFullYear()} LUNDA. All rights reserved.
           </p>
-          <p className="mt-2">© {new Date().getFullYear()} LUNDA. All rights reserved.</p>
         </div>
       </div>
     </footer>

@@ -74,6 +74,20 @@ export const homeIntro = {
   ],
 } as const;
 
+export const homeQuestion = {
+  label: "하나의 질문",
+  headline: "필요한 소리는 남기고, 화면은 뒤로 물러나게 할 수 있을까요?",
+  body: "LUNDA는 그 질문에서 출발합니다. 기술을 드러내기보다, 집중과 움직임이 자연스럽게 이어지는 오디오 경험을 연구합니다.",
+  primary: {
+    label: "PR1 경험 보기",
+    href: "/projects/pr1",
+  },
+  secondary: {
+    label: "연구 방향",
+    href: "/research",
+  },
+} as const;
+
 export const homeVision = {
   label: "LUNDA의 비전",
   headline: ["기술은 뒤로.", "삶은 앞으로."],

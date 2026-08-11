@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { brand } from "@/content/lun-content";
 import styles from "./lunda-vision-animation.module.css";
 
@@ -20,19 +20,33 @@ const segment = (progress: number, start: number, end: number) =>
 export function LundaVisionAnimation() {
   const storyRef = useRef<HTMLElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
+  const glassRef = useRef<HTMLDivElement>(null);
+  const controlsRef = useRef<{ start: () => void; skip: () => void } | null>(
+    null,
+  );
+  const [phase, setPhaseState] = useState<"idle" | "playing" | "complete">(
+    "idle",
+  );
 
   useEffect(() => {
     const story = storyRef.current;
     const stage = stageRef.current;
+    const glass = glassRef.current;
     if (!story || !stage) return;
 
     let animationFrame = 0;
     let animationStartedAt = 0;
-    let phase: "idle" | "playing" | "complete" = "idle";
+    let phaseLocal: "idle" | "playing" | "complete" = "idle";
     let touchStartY: number | null = null;
     const reducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     );
+
+    const setPhase = (nextPhase: typeof phaseLocal) => {
+      phaseLocal = nextPhase;
+      stage.dataset.phase = nextPhase;
+      setPhaseState(nextPhase);
+    };
 
     const renderProgress = (progress: number) => {
       const eArrival = segment(progress, 0.015, 0.2);
@@ -63,10 +77,7 @@ export function LundaVisionAnimation() {
         "--lunda-x",
         `${(-0.38 * (1 - eArrival)).toFixed(3)}em`,
       );
-      stage.style.setProperty(
-        "--latin-opacity",
-        (1 - latinExit).toFixed(4),
-      );
+      stage.style.setProperty("--latin-opacity", (1 - latinExit).toFixed(4));
       stage.style.setProperty(
         "--latin-blur",
         `${(14 * latinExit).toFixed(2)}px`,
@@ -122,11 +133,6 @@ export function LundaVisionAnimation() {
       );
     };
 
-    const setPhase = (nextPhase: typeof phase) => {
-      phase = nextPhase;
-      stage.dataset.phase = nextPhase;
-    };
-
     const finishAnimation = () => {
       if (animationFrame) {
         window.cancelAnimationFrame(animationFrame);
@@ -155,17 +161,22 @@ export function LundaVisionAnimation() {
     };
 
     const startAnimation = () => {
-      if (phase !== "idle") return;
+      if (phaseLocal !== "idle") return;
 
       setPhase("playing");
       animationStartedAt = 0;
       animationFrame = window.requestAnimationFrame(playAnimation);
     };
 
+    controlsRef.current = {
+      start: startAnimation,
+      skip: finishAnimation,
+    };
+
     const shouldHoldOpening = () => {
       const storyRect = story.getBoundingClientRect();
       return (
-        phase !== "complete" &&
+        phaseLocal !== "complete" &&
         window.scrollY <= OPENING_SCROLL_TOLERANCE &&
         storyRect.bottom > 0
       );
@@ -203,11 +214,18 @@ export function LundaVisionAnimation() {
         target?.matches("input, textarea, select, [contenteditable='true']") ||
         event.altKey ||
         event.ctrlKey ||
-        event.metaKey ||
-        event.shiftKey
+        event.metaKey
       ) {
         return;
       }
+
+      if (event.key === "Escape" && phaseLocal === "playing") {
+        event.preventDefault();
+        finishAnimation();
+        return;
+      }
+
+      if (event.shiftKey) return;
 
       const isForwardScrollKey = [
         "ArrowDown",
@@ -215,6 +233,7 @@ export function LundaVisionAnimation() {
         " ",
         "Spacebar",
         "End",
+        "Enter",
       ].includes(event.key);
 
       if (!isForwardScrollKey || !shouldHoldOpening()) return;
@@ -225,7 +244,7 @@ export function LundaVisionAnimation() {
 
     const handleUnexpectedScroll = () => {
       if (
-        phase === "idle" &&
+        phaseLocal === "idle" &&
         window.scrollY > OPENING_SCROLL_TOLERANCE &&
         story.getBoundingClientRect().bottom > 0
       ) {
@@ -237,13 +256,23 @@ export function LundaVisionAnimation() {
       if (event.matches) finishAnimation();
     };
 
+    const handlePointerMove = (event: PointerEvent) => {
+      if (!glass || reducedMotion.matches) return;
+      const rect = glass.getBoundingClientRect();
+      const x = ((event.clientX - rect.left) / rect.width) * 100;
+      const y = ((event.clientY - rect.top) / rect.height) * 100;
+      glass.style.setProperty("--specular-x", `${clamp(x / 100) * 100}%`);
+      glass.style.setProperty("--specular-y", `${clamp(y / 100) * 100}%`);
+    };
+
+    const handleGlassActivate = () => {
+      if (phaseLocal === "idle") startAnimation();
+    };
+
     stage.dataset.phase = "idle";
     renderProgress(0);
 
-    if (
-      reducedMotion.matches ||
-      window.scrollY > OPENING_SCROLL_TOLERANCE
-    ) {
+    if (reducedMotion.matches || window.scrollY > OPENING_SCROLL_TOLERANCE) {
       finishAnimation();
     }
 
@@ -259,6 +288,8 @@ export function LundaVisionAnimation() {
       passive: true,
     });
     reducedMotion.addEventListener("change", handleReducedMotionChange);
+    glass?.addEventListener("pointermove", handlePointerMove);
+    glass?.addEventListener("click", handleGlassActivate);
 
     return () => {
       window.removeEventListener("wheel", handleWheel);
@@ -269,6 +300,9 @@ export function LundaVisionAnimation() {
       window.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("scroll", handleUnexpectedScroll);
       reducedMotion.removeEventListener("change", handleReducedMotionChange);
+      glass?.removeEventListener("pointermove", handlePointerMove);
+      glass?.removeEventListener("click", handleGlassActivate);
+      controlsRef.current = null;
       if (animationFrame) window.cancelAnimationFrame(animationFrame);
     };
   }, []);
@@ -285,15 +319,14 @@ export function LundaVisionAnimation() {
       </h1>
 
       <div className={styles.sticky}>
-        <div
-          ref={stageRef}
-          className={styles.stage}
-        >
+        <div ref={stageRef} className={styles.stage} data-phase={phase}>
           <span className={`${styles.ambient} ${styles.ambientA}`} aria-hidden />
           <span className={`${styles.ambient} ${styles.ambientB}`} aria-hidden />
 
-          <div className={styles.glass}>
+          <div ref={glassRef} className={styles.glass} role="presentation">
             <span className={styles.liquidFlow} aria-hidden />
+            <span className={styles.specular} aria-hidden />
+
             <div className={styles.sequence} aria-hidden>
               <span className={styles.fusionRing} />
 
@@ -308,12 +341,37 @@ export function LundaVisionAnimation() {
 
             <p className={styles.tagline}>{brand.tagline}</p>
 
-            <span className={`${styles.cue} ${styles.startCue}`} aria-hidden>
-              스크롤하여 시작
-            </span>
-            <span className={`${styles.cue} ${styles.endCue}`} aria-hidden>
-              아래로 계속
-            </span>
+            {phase === "idle" ? (
+              <button
+                type="button"
+                className={`${styles.cue} ${styles.startCue} ${styles.cueButton}`}
+                onClick={(event) => {
+                  event.stopPropagation();
+                  controlsRef.current?.start();
+                }}
+              >
+                스크롤하거나 눌러 시작
+              </button>
+            ) : null}
+
+            {phase === "playing" ? (
+              <button
+                type="button"
+                className={styles.skipButton}
+                onClick={(event) => {
+                  event.stopPropagation();
+                  controlsRef.current?.skip();
+                }}
+              >
+                건너뛰기
+              </button>
+            ) : null}
+
+            {phase === "complete" ? (
+              <span className={`${styles.cue} ${styles.endCue}`}>
+                아래로 계속
+              </span>
+            ) : null}
           </div>
         </div>
       </div>

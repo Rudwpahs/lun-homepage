@@ -1,13 +1,15 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { homeIntro } from "@/content/lun-content";
+import { useRotatingIndex } from "@/lib/use-rotating-index";
 import styles from "./home-company-intro.module.css";
 
 export function HomeCompanyIntro() {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const { activeIndex, selectIndex } = useRotatingIndex(
+    homeIntro.keywords.length,
+  );
   const activeItem = homeIntro.keywords[activeIndex];
 
   return (
@@ -37,15 +39,49 @@ export function HomeCompanyIntro() {
         </div>
 
         <div className={styles.experience}>
-          <p className={styles.instruction}>세 단어로 보는 LUNDA</p>
+          <p className={styles.instruction} id="lunda-keyword-label">
+            세 단어로 보는 LUNDA
+          </p>
 
           <div
             className={styles.keywords}
+            role="tablist"
+            aria-labelledby="lunda-keyword-label"
             style={
               {
                 "--active-index": activeIndex,
               } as React.CSSProperties
             }
+            onKeyDown={(event) => {
+              const focusTab = (index: number) => {
+                selectIndex(index, { user: true });
+                window.requestAnimationFrame(() => {
+                  document
+                    .getElementById(`lunda-keyword-tab-${index}`)
+                    ?.focus();
+                });
+              };
+
+              if (event.key === "ArrowRight" || event.key === "ArrowDown") {
+                event.preventDefault();
+                focusTab((activeIndex + 1) % homeIntro.keywords.length);
+              }
+              if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+                event.preventDefault();
+                focusTab(
+                  (activeIndex - 1 + homeIntro.keywords.length) %
+                    homeIntro.keywords.length,
+                );
+              }
+              if (event.key === "Home") {
+                event.preventDefault();
+                focusTab(0);
+              }
+              if (event.key === "End") {
+                event.preventDefault();
+                focusTab(homeIntro.keywords.length - 1);
+              }
+            }}
           >
             <span className={styles.activeLens} aria-hidden />
 
@@ -56,13 +92,16 @@ export function HomeCompanyIntro() {
                 <button
                   key={item.keyword}
                   type="button"
+                  role="tab"
+                  id={`lunda-keyword-tab-${index}`}
                   className={styles.keywordButton}
                   data-active={isActive}
-                  aria-pressed={isActive}
+                  aria-selected={isActive}
                   aria-controls="lunda-keyword-detail"
-                  onPointerEnter={() => setActiveIndex(index)}
-                  onFocus={() => setActiveIndex(index)}
-                  onClick={() => setActiveIndex(index)}
+                  tabIndex={isActive ? 0 : -1}
+                  onPointerEnter={() => selectIndex(index, { user: true })}
+                  onFocus={() => selectIndex(index, { user: true })}
+                  onClick={() => selectIndex(index, { user: true })}
                 >
                   <span className={styles.keyword}>{item.keyword}</span>
                   <span className={styles.keywordHint}>{item.hint}</span>
@@ -71,7 +110,12 @@ export function HomeCompanyIntro() {
             })}
           </div>
 
-          <div id="lunda-keyword-detail" className={styles.detail}>
+          <div
+            id="lunda-keyword-detail"
+            role="tabpanel"
+            aria-labelledby={`lunda-keyword-tab-${activeIndex}`}
+            className={styles.detail}
+          >
             <p key={activeItem.keyword} aria-live="polite">
               {activeItem.statement}
             </p>

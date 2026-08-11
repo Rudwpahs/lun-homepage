@@ -9,9 +9,11 @@ import { navItems } from "@/lib/site-config";
 import { Logo } from "@/components/layout/logo";
 
 export function Header() {
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [menuPath, setMenuPath] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+  // 경로가 바뀌면 menuPath !== pathname 이 되어 메뉴가 자연스럽게 닫힌다.
+  const menuOpen = menuPath === pathname;
 
   useEffect(() => {
     const updateScrolled = () => setScrolled(window.scrollY > 8);
@@ -26,6 +28,18 @@ export function Header() {
     return () => {
       document.body.style.overflow = "";
     };
+  }, [menuOpen]);
+
+  // Escape로 모바일 메뉴 닫기
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMenuPath(null);
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
   }, [menuOpen]);
 
   const isActive = (href: string) =>
@@ -67,7 +81,9 @@ export function Header() {
           {/* 모바일 메뉴 버튼 (44px 터치 타깃) */}
           <button
             type="button"
-            onClick={() => setMenuOpen((open) => !open)}
+            onClick={() =>
+              setMenuPath((current) => (current === pathname ? null : pathname))
+            }
             aria-expanded={menuOpen}
             aria-controls="mobile-menu"
             aria-label={menuOpen ? "메뉴 닫기" : "메뉴 열기"}
@@ -88,7 +104,7 @@ export function Header() {
           className="border-t border-white/50 lg:hidden"
           onClick={(event) => {
             if ((event.target as HTMLElement).closest("a")) {
-              setMenuOpen(false);
+              setMenuPath(null);
             }
           }}
         >
